@@ -1,6 +1,7 @@
 # Ignore auxiliary LaTeX files
 *.aux
 *.bbl
+*.bcf
 *.blg
 *.brf
 *.fls
@@ -14,6 +15,8 @@
 *.vrb
 *.xdv
 *.run.xml
+*.upa
+*.upb
 
 # Ignore temporary files
 *.tmp
