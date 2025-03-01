@@ -13,6 +13,7 @@
 *.toc
 *.vrb
 *.xdv
+*.run.xml
 
 # Ignore temporary files
 *.tmp

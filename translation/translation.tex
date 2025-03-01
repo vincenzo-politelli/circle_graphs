@@ -1,15 +1,22 @@
 \documentclass{article}
 
 % format
-\usepackage[a4paper, total={6in, 9in}]{geometry}
+% \usepackage[a4paper, total={6in, 9in}]{geometry}                            
 
 % math symbols
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage[shortlabels]{enumitem}
+\usepackage[shortlabels]{enumitem} 
 \usepackage{mathtools}
+\usepackage{bbm}
+
+% annotations
 \usepackage{todonotes}
+
+% figures
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 % theorems
 \theoremstyle{definition}
@@ -43,252 +50,602 @@
 \DeclareMathOperator{\Hess}{\textbf{H}}
 \DeclareMathOperator{\Diag}{Diag}
 \DeclareMathOperator{\Tr}{Tr}
-
+\DeclareMathOperator{\ind}{i}
+\DeclareMathOperator{\sgn}{sign}
 
 \begin{document}
-    \section{Upper bounds for the chromatic number
-    of chordal graphs and their complements}
 
-    \subsection{Discussion of the problem}
+    \section{Algorithms for coloring circle graphs}
+    
+    \textbf{WARNING}: intervals
+    $h_1$, $h_2$ overlap if
+    $h_1 \cap h_2 \neq \emptyset$
+    $h_1 \not \subseteq h_2$ and
+    $h_2 \not \subseteq h_1$.
 
-    A graph G such that
-    $V(G)=\{v_1,\ldots, v_n\}$ is called 
-    a chord intersection graph
-    (or simply a chord graph) 
-    if for some family $H = \{h_{i}, \ldots, h_{n}\}$
-    of chords of a circle the 
-    vertices $v_{i}$ and $v_{j}$
-    are adjacent if and only if 
-    $h_{i}$ and $h_{j}$ 
-    intersect (i.e., have a common point
-    not belonging to the circle). 
-    Chord intersection graphs arise 
-    when considering various
-    combinatorial problems,
-    from sorting problems to 
-    the study of planar graphs
-    or chain fractions [4, 24].
-    In particular, the problem 
-    of determining the smallest
-    number of stacks necessary to
-    realize a given permutation 
-    of numbers reduces to finding 
-    the chromatic number of 
-    the corresponding chord graph [4, 16].
+    We look at the class
+    of circle graphs as the class
+    of overlap graphs of intervals on a line.
+    Without loss of generality,
+    we only consider the interval
+    models containing open intervals
+    \todo{I am assuming opennes}
+    in which no two intervals
+    share an endpoint.
 
-    A graph $G$ with $V(G) = \{v_{1}, \ldots, v_{n}\}$
-    is called a meshing graph if 
-    for some family $F = \{h_1, \ldots, h_n\}$ 
-    of line segments the vertices 
-    $v_{i}$ and $v_{j}$ are adjacent 
-    if and only if the segments 
-    $h_{i}$ and $h_{j}$ are meshing, 
-    i.e., intersecting and $h_{i} \not \subseteq  h_{j}$
-    and $h_{j} \not \subseteq h_{i}$.  
-    Using stereographic projection, 
-    it is easy to verify that $G$ is a chordal graph
-    if and only if it is a meshing graph [4].
+    For any such family of intervals
+    $F$ and any point $c$ on a line,
+    we set $F^{-}\left(c\right) \defeq
+    \left\{\left(a, b\right) \in F
+    \middle| b < c\right\}$,
+    $F^{0}\left(c\right) \defeq
+    \left\{\left(a, b\right)
+    \middle| a < c < b\right\}$,
+    $F^{+}\left(c\right) \defeq
+    \left\{\left(a, b\right)
+    \middle| c < a\right\}$.
+    If $\omega\left(F\right) = 2$,
+    for all $\left(a, b\right) \in F$,
+    we have that
+    $F^{0}\left(a\right) \setminus F^{0}\left(b\right)$ 
+    and $F^{0}\left(b\right) \setminus F^{0}\left(a\right)$
+    only contain nested intervals.
+    Otherwise, if we had two
+    overlapping intervals $h_1, h_2 \in
+    F^{0}\left(a\right) \setminus F^{0}\left(b\right)$,
+    we would have $h_1, h_2, \left(a, b\right)$ 
+    forming a triangle.
 
-    The density and non-density
-    of a chord graph can be found 
-    in polynomial time of 
-    the number of its vertices [4, 25]. 
-    But no such algorithms are known 
-    for finding the clique 
-    number (i.e., chromatic 
-    complement number)
-    of chord graphs, and the 
-    problem of finding the 
-    chromatic number of chord
-    graphs is NP-hard [26]. 
-    It is all the more 
-    important and interesting
-    to find $\varphi(\mathcal{X}, k)$ and 
-    $\varphi(\overline{\mathcal{X}}, k)$
-    defined in the introduction, 
-    where $\mathcal{X}$ is the 
-    class of chord graphs and
-    $\overline{\mathcal{X}}$
-    is the class of their 
-    complements. 
-    The following results 
-    are known in this direction. 
-    Karapetyan [27] proved that 
-    $4 \leq \varphi\left(\mathcal{X}, 2\right) \leq 8$
-    $\varphi\left(\mathcal{X}, k\right) \leq k(k+1)/2$. 
-    The second of these 
-    results was later published in [28]. 
-    Dyarfash [29] proposed a proof 
-    of the statement $\varphi\left(\mathcal{X}, k\right) \leq 2^k k^2 (k-1)$. 
-    Unfortunately, lemma 2 of [29] is incorrect. 
-    Nevertheless, an estimate follows from [29] 
-    $\varphi\left(\mathcal{X}, k\right) \leq 2^k (2^k - 2)k^2$. 
-    Below we give an asymptotically exact 
-    estimate for $k \rightarrow +\infty$
-    of $\varphi\left(\mathcal{X}, k\right)$. 
-    It turns out that $\varphi\left(\mathcal{X}, k\right) \sim k \log (k)$. 
-    Furthermore, using the idea of 
-    Dyarfash's proof [29], 
-    we will show that $\varphi\left(\mathcal{X}, k\right) \leq 2^k(k+2)k$, 
-    but not up to $\varphi\left(\mathcal{X}, 2\right) \leq 5$.  
-    Note that the latter result 
-    is announced but 
-    not proved in [28, 30]. 
-    In Section 4.4 we will show 
-    $\varphi(\mathcal{X}, k) \geq (k/2)(\ln k - 2)$. 
-    These results show that there 
-    are graphs in $\mathcal{X}$
-    that are more “complicated” 
-    than graphs from the
-    $\mathcal{D}$-class of all 
-    intersection graphs of circle arcs. 
-    It is known [4, 9, 31] that $\varphi\left(\mathcal{D}, k\right) = [3k/2]$, 
-    $\varphi(\bar{\mathcal{D}}, k) = k+1$
-    for $k \geq 1$.
-
-    It is not difficult 
-    to verify [4] that for 
-    every family $H$ of chords of 
-    a circle there is a family $H'$ 
-    whose chord intersection graph 
-    coincides with a similar graph 
-    for $H$, but whose different 
-    chords do not have common ends. 
-    Therefore, in the proof 
-    of the upperbound, we consider 
-    only families of chords or intervals 
-    whose different elements 
-    do not have common ends.
-    In order not to clutter the notation, 
-    for a family $H$ of chords (intervals)
-    we will denote by $\alpha\left(H\right)$, 
-    $\chi\left(H\right)$, etc. 
-    the non-density, chromatic number, etc. 
-    for the corresponding chord 
-    intersection graph (meshing graph). 
-    Only finite families of 
-    chords or segments are 
-    considered throughout. 
-    Let us condition some more notation. 
-    The chord connecting points $a$ and $b$ 
-    will be denoted as 
-    an open segment $]a, b[$. 
-    If $a$ and $b$ are 
-    the points of the circle, 
-    we denote by $[a, b]$, the arc connecting $a$ and $b$, 
-    that when we move along it from $a$ to $b$ 
-    we go around the circle counterclockwise. 
-    We will write $]c, d[ \subseteq [a, b]$ 
-    if both ends of the chord $]c, d[$ 
-    belong to the arcs $[a, b]$. 
-    In particular $]a, b[ \subseteq [a, b]$.
-
-    \subsection{Upperbound for $\varphi\left(\bar{\mathcal{X}}, k\right)$.}
-
-    \begin{thm}
-        Let $H$ be a family 
-        of chords of the 
-        circle and $\alpha\left(H\right) = k $.
-        Then $\sigma(H) = \chi(\bar{H}) \leq 
-        \Psi(k) = \sum_{i = 1}^{[k/2]}[(k+1)/i] 
-        + \varepsilon\left(k\right) - \left|Q(k)\right|$ 
-        with $Q(k) = \{m \in Z | 1< (k+1)/4 < m < (k+1)/3\}$ 
-        and $\varepsilon\left(k\right) = 0$ 
-        if $k$ is even or 1 otherwise.
-    \end{thm}
+    \begin{lemma} \label{lemma:4.4}
+        Let $F$ be the interval
+        model of a circle graph.
+        Suppose that $\omega\left(F\right) = 2$ 
+        and that for no two
+        $h_1, h_2 \in F$,
+        there exists $h_3 \in F$ 
+        with $h_3 \in h_1 \cap h_2$.
+        Then, there exists a 3-coloring
+        of $F$ such that for all
+        $\left(a, b\right) \in F$, 
+        the intervals in $F^{0}\left(a\right) 
+        \setminus F^{0}\left(b\right)$
+        have the same color. \todo{
+        I guess that the remarkable
+        result is the 3-coloring
+        part}
+    \end{lemma}
     \begin{proof}
-        Let us call a chord 
-        $h_0 = ]a, b[ \in H$ 
-        a separating chord in $H$ 
-        if there are such chords 
-        $h_1$, $h_2$ such that 
-        $h_1 \subseteq [a, b]$, 
-        $h_2 \subseteq [b,a]$. 
-        Let $H_1$ be a family 
-        of non-separating chords 
-        in $H$ and for all 
-        $i = 2, 3, \ldots, |H|$, 
-        let $H_i$ be a family of 
-        non-separating chords in 
-        $H \setminus \bigcup_{1 \leq j \leq i-1} H_{j}$.
+        By way of contradiction,
+        suppose that the statement is incorrect
+        and let $F = \left\{h_{i}\right\}_{i = 1}^{n} =
+        \left\{\left(a_{i}, b_{i}\right)\right\}_{i = 1}^{n}$
+        be the counterexample
+        to this lemma with the
+        least cardinality.
+        Clearly, $G\left(F\right)$ is 
+        connected. \todo{if $G\left(F\right)$ was
+        not connected, at least one
+        of its connected components
+        would countervene to the lemma
+        and we would have a smaller
+        counterexample}
+        Let $\left(a_1, b_1\right),
+        \ldots, \left(a_{t}, b_{t}\right)$
+        , with $a_1 < \ldots < a_{t}$,
+        be the intervals of $F$ which
+        are not contained in any other 
+        intervals. Notice that we have
+        $F^{0}\left(a_{1}\right) = 
+        F^{-}\left(a_1\right) = \emptyset$.
+        Suppose that $\left|F^{0}\left(b_1\right)\right| \leq 1$.
+        By the minimality of $F$,
+        we get that the interval
+        model $F' \defeq F \setminus \left\{h_{1}\right\}$ 
+        is 3-colorable. It is clear
+        that coloring $h_1$ with a different
+        color from $h_2$, we obtain a coloring
+        for $F$. Which contradicts the fact
+        that $F$ is a counterexample to this lemma.
+        Therefore, we conclude that $\left|F^{0}\left(b_1\right)\right| \geq 2$ 
+        and $t \geq 2$.
 
-        By definition of $H_i$, 
-        if $h = ]a, b[ \in H_i$, $i > 1$, 
-        then there exist chords 
-        $h', h'' \in H_{i-1}$ 
-        such that $h’ \subseteq [a, b]$, 
-        $h' \subseteq [b, a]$. 
-        The chord-connecting points 
-        $a$ and $b$, can be written 
-        $]a, b[$ or $]b, a[$. 
-        In the following we denote 
-        such a chord belonging to $H$ 
-        by $]a, b[$ if the arc $[a, b]$ 
-        does not contain chords of 
-        $\bigcup_{j \geq i} H_j \setminus \{]a, b[\}$ 
-        and by $]b, a[$ otherwise. 
-        With this notation, 
-        the graph of intersections 
-        of chords of family 
-        $H_i = \{]a^i_j, b^i_j[\}_{1 \leq j \leq m_i}$ 
-        coincides with the graph 
-        of intersections of arcs 
-        of family $D_i = \{[a^i_j, b^i_j]\}_{1 \leq j \leq m_i}$. 
-        But it has been noted above that, 
-        according to [31],  we have $\sigma\left(H_{i}\right)= 
-        \sigma(D_i) \leq \alpha(D_i)+1 = 
-        \alpha(H_i) + 1$. 
-
-        Let us show that $\alpha(H_i) \leq k/i$. 
-        For $i = 1$ this follows from 
-        the assumptions of the theorem. 
-        Let $i > 1$. Let us choose $t = \alpha(H_i)$ 
-        non-intersecting chords $]a^i_1, b^i_1[,
-        \ldots ]a^t_i, b^t_i[$.
-        By definition of $H_{i}$, for each
-        $1 \leq j \leq t$, there exists
-        $]a^{i-1}_{j}, b^{i-1}_{j}[ \in H_{i-1}$,
-        such that $]a^{i-1}_{j}, b^{i-1}_{j}[
-        \subseteq ]a^{i}_{j}, b^{i}_{j}[$.
-        Similarly, if $i - 1> 1$, 
-        then for each $1 \leq j \leq k$, 
-        there exist chords $]a^{i-2}_{j}, b^{i-2}_{j}[
-        \subseteq H_{i-2}$ such that
-        $]a^{i-2}_{j}, b^{i-2}_{j}[ \subseteq 
-        ]a^{i-1}_{j}, a^{i-1}_{j}[$ etc.
+        By the connectedness of $G\left(F\right)$,
+        we have $h_{i} \cap h_{i+1} \neq \emptyset$ 
+        for all $i \in \left\{1, \ldots, t -1\right\}$.
+        Let us show that for all
+        $i \in \left\{1, \ldots, t - 1\right\}$
+        we have
+        $F^{-}\left(b_{i}\right) = \emptyset$ 
+        or $F^{+}\left(a_{i+1}\right) = \emptyset$.
+        \todo{That would imply
+        that $i = 1$ or $i = t$ 
+        for all $i \in
+        \left\{1, \ldots, t\right\}$
+        and so $t \leq 2$}
+        Suppose that this does not
+        hold for some $1 \leq i \leq t - 1$.
+        Let $F_1 = F \setminus F^{+}\left(a_{i+1}\right)$
+        and $F_2 = F \setminus F^{-}\left(b_{i}\right)$.
         
-        Hence, there exists a
-        family $H' = \left\{]a^{l}_{j}, b^{l}_{j}[
-        \middle| l = 1, \ldots, i \text{ and }
-        j = 1, \ldots, t\right\}$ of
-        $\bigcup_{l = 1}^{i} H_{l}$
-        of pairwise non-intersecting
-        chords such that $\alpha\left(H_{i}\right) \leq k/i$.
+        We claim that $F_1 \cap F_2 = 
+        \left\{h_{i}, h_{i+1}\right\}$.
+        Indeed, $h_{j} \in 
+        F_1 \cap F_2$, 
+        iff $a_{j} \leq a_{i+1}$ 
+        and $b_{j} \geq b_{i+1}$.
+        Clearly $h_{i}$ and
+        $h_{i+1}$ have this
+        property.
+        Now, suppose that there
+        exists $h_{j} \in F_1 \cap F_2$
+        such that $a_{j} < a_{i+1}$
+        and $b_{j} > b_{i+1}$.
+        We cannot have $a_{j} < a_{i}$,
+        because otherwise $h_{i} \subseteq h_{j}$.
+        Similarly, we cannot have $b_{j} > b_{i+1}$,
+        because otherwise, we would
+        have $h_{i+1} \subseteq h_{j}$.
+        Therefore we have $a_{i} < a_{j}$ 
+        and $b_{j} < b_{i+1}$.
+        The only remaining case is
+        that of $a_{i} < a_{j} < a_{i+1}$ 
+        and $b_{i} < b_{j} < b_{i+1}$.
+        But if this is the case,
+        $\left\{h_{i}, h_{j}, h_{i+1}\right\}$ would
+        form a triangle, which
+        contradicts our assumptions.
+        
+        In view of the minimality of
+        $F$, there exist 3-colorings
+        $f_1$, $f_2$ of $F_1$ and $F_2$ as required
+        by the statement of this lemma
+        with colors 1, 2 and 3 (here
+        we use our assumption that
+        $F^{-}\left(b_{i}\right)$ 
+        and $F^{+}\left(a_{i+1}\right)$ 
+        are non-empty and thus
+        $F_{1}$ and $F_{2}$ are
+        strictly smaller than $F$).
+        Since $h_1$ and $h_2$ overlap,
+        they have different colors
+        both in $f_1$ and $f_2$, therefore,
+        we can assume without loss of 
+        generality that
+        $f_1\left(h_{i}\right) = f_2\left(h_{i}\right) = 1$
+        and $f_{1}\left(h_{i+1}\right) = 
+        f_2\left(h_{i+1}\right) = 2$.
+        Let
+        \begin{equation*}
+            f\left(h\right) = 
+            \begin{cases}
+                f_1\left(h\right) &\text{ if } h \in F_1, \\
+                f_2\left(h\right) &\text{ if } h \in F_{2}.
+            \end{cases}
+        \end{equation*}
+        We verify that $f$ 
+        is a coloring of $F$. Let
+        $h' = \left(a', b'\right) \in F$,
+        $h'' = \left(a'', b''\right) \in F$
+        with $a' < a'' < b' < b''$.
+        If $\left\{h', h''\right\} \subseteq F_1$ 
+        or $\left\{h', h''\right\} \subseteq F_2$,
+        then $f\left(h'\right) \neq 
+        f\left(h''\right)$.
+        If $h' \in F^{-}\left(b_{i}\right)$ 
+        and $h'' \in F^{+}\left(a_{i+1}\right)$
+        then, by assumption
+        we have
+        $h', h'' \not \subseteq \left(a_{i+1}, b_{i}\right)$,
+        and so we must have $a' < a_{i+1} < 
+        a'' < b' < b_{i} < b''$. 
+        Since $f_2$ is a coloring,
+        we have $f\left(h''\right) =
+        f_2\left(h''\right) =
+        f_2\left(h_{i+1}\right) = 2$.
+        Since $h'$ overlaps with $h_{i+1}$
+        and $h', h_{i+1}
+        \in F_1$, then $f\left(h'\right)
+        \neq 2 = f\left(h''\right)$.
+        \todo{So far we proved that
+        the colorings $f_1$ and 
+        $f_2$ can be fused into 
+        one coloring $f$.}
+        Similarly, we can verify
+        that for all $\left(a, b\right) \in F$
+        all intervals in $F^{0}\left(b\right)
+        \setminus F^{0}\left(a\right)$
+        have the same color. \todo{
+        We can do this by introducing 
+        a trick like $\left(d, d_{s} + 1\right)$.
+        This time it should be just
+        $h_{i}$ added
+        to $F_2$.}
+        Thus
+        $f$ is a 3-coloring of $F$,
+        which contradicts our choice of $F$.
+        Thus, we have that
+        $F^{-}\left(b_{i}\right) = \emptyset$ and
+        $F^{+}\left(a_{i+1}\right) = \emptyset$ 
+        for all $i \in \left\{1, \ldots, t-1\right\}$.
+        \todo{Now that we have this
+        why do we go on?}
 
-        Assume that $H_{l} \neq \emptyset$.
-        Let us consider $]a^{l}, b^{l}[
-        \in H_{l}$. If $l > 1$,
-        then there are chords
-        $]a^{l-1}_{1}, b^{l-1}_{1}[ \in H_{l-1}$
-        and $]a^{l-1}_{2}, b^{l-1}_{2}[ \in H_{l-1}$ 
-        such that $]a^{l-1}_{1}, b^{l-1}_{1}[
-        \in [a^{l}, b^{l}]$ and
-        $]a^{l-1}_{2}, b^{l-1}_{2}[ \in [b^{l}, a^{l}]$.
-        As in the previous argument,
-        we assume the existence of a
-        subset $H''$ of $H$ of
-        pairwise non-intersecting chords
-        with $H'' = \left\{]a^{l}, b^{l}[\right\}
-        \cup \left\{]a^{i}_{j}, b^{i}_{j}
-        \middle| i = 1, \ldots, l-1
-        \text{ and } j = 1, 2[\right\}$.
-        Thus $k \geq \left|H''\right|
-        = 1 + 2\left(l-1\right)$
-        and $l \leq (k+1)/2$.
-        Hence $H_{i} \neq \emptyset$ 
-        for all $i > (k+1)/2$
-        and 
+        We have $\left|F^{+}\left(a_{2}\right)\right| \geq
+        \left|F^{0}\left(b_1\right)\right| \geq 2$,
+        and, since $F^{-}\left(b_1\right) = \emptyset$,
+        we have $F^{0}\left(a_2\right)
+        = \left\{h_1\right\}$.
+        
+        If $F^{0}\left(b_2\right) = \emptyset$,
+        i.e. $t=2$, then $h_2$
+        only overlaps with $h_1$.
+        A coloring $h_2$ with the color
+        of the elements of $F^{0}\left(b_1\right)
+        \setminus \left\{h_2\right\}$,
+        we obtain a 3-coloring of $F$ with
+        the conditions required by
+        the present lemma, which is a
+        contradiction.
+        
+        If $F^{0}\left(b_2\right) \neq \emptyset$
+        and $t \geq 3$,
+        we obtain (since $h_1 \in
+        F^{-}\left(b_2\right)$)
+        theat $F^{+}\left(a_3\right)=\emptyset$ 
+        and thus $t=3$
+        and $F^{0}\left(b_2\right) = \left\{h_3\right\}$.
+        Consider $F \setminus h_2$.
+        Since $F$ is minimal,
+        we find that there exists
+        a coloring $f$ of $F \setminus \left\{h_2\right\}$
+        which follows the requirement
+        of the present lemma.
+        Let $h_2' = \left(a_2', b_2'\right)$
+        be the longest interval of 
+        $F^{0}\left(b_1\right) \setminus \left\{h_2\right\}$
+        (which exists since $\left|F^{0}\left(b_1\right)\right|
+        \geq 2$). This way
+        $h_2'$ contains all
+        the intervals in
+        $F^{0}\left(b_1\right)$.
+        Now, assume that $f\left(h_1\right) = 1$
+        and $f\left(h_2'\right) = 2$.
+        If $f\left(h_3\right)\neq 2$,
+        then we have a coloring 
+        of $F$ with the properties
+        required by the present lemma.
+        Which yields a contradiction.
+        If $f\left(h_3\right) = 2$,
+        then $h_3$ and $h_2'$
+        do not overlap. Thus $h_3 \in F^{+}\left(b_2'\right)$.
+        By assumption, all intervals
+        of $F^{0}\left(b_2'\right)$ 
+        are colored with the same color
+        $\gamma \in \left\{1,3\right\}$.
+        By recoloring all elements
+        of $F^{+}\left(b_2'\right)$
+        of color 2 to color 
+        $\delta \in \left\{1,3\right\}
+        \setminus \gamma$
+        and all elements of $F^{+}\left(b_2'\right)$ 
+        of color $\delta$ with color 2,
+        we obtain a 
+        new coloring $f'$ of 
+        $F \setminus \left\{h_2\right\}$. \todo{
+        We essentially flip 2 and $\delta$,
+        if there was no conflict
+        before, there is no conflict
+        now} Since $h_3 \in F^{+}\left(b_2'\right)$,
+        \todo{since $h_2'$ and $h_3$ do not
+        overlap} we get
+        $f'\left(h_2'\right)=2$ and
+        $f'\left(h_3\right) \neq 2$.
+        By coloring $h_2$ with
+        color 2, we obtain a coloring
+        of $F$ with the properties
+        required by the present lemma.
+        \todo{this is because $F^{0}\left(a_2\right)
+        = \left\{h_1\right\}$ and
+        $F^{0}\left(b_2\right) = \left\{h_3\right\}$}
     \end{proof}
+    
+    For each pair of overlapping
+    intervals $h_1, h_2 \in F$,
+    let $p\left(h_1, h_2\right)
+    = h_1 \cap h_2$.
+    We denote by $P\left(F\right)$ 
+    the family of such intersections.
+    Let $P^{0}\left(F\right) \subseteq 
+    P\left(F\right)$ be the
+    inclusion-wise maximal family
+    of $P\left(F\right)$.
 
+    \begin{lemma} \label{lemma:4.5}
+        Let $F$ be a family of
+        intervals with $\omega\left(F\right)=2$.
+        Then, the intervals of $P^{0}\left(F\right)$ 
+        do not intersect.
+    \end{lemma}
+    \begin{proof}
+        Let $p_1=h_1 \cap h_2 \in 
+        P^{0}\left(F\right)$ and
+        $p_2=h_3 \cap h_4 \in P^{0}\left(F\right)$.
+        \todo{Possibly $h_3=h_2$}
+        Therefore, $\left(p_1 \cap p_2\right) =
+        \left(a_4, b_1\right)$.
+        So $a_1 < a_2 < a_4
+        < b_1 <b_3 < b_4$.
+        If $b_2 < b_4$,
+        then $h_1, h_2, h_4$ 
+        pairwise overlap. 
+        Thus we have a triangle,
+        which is a contradiction.
+        Thus $b_4 < b_2$.
+        By a symmetric argument
+        we get $a_1 < a_3$.
+        But then $p_2 =
+        \left(a_4, b_3\right)
+        \subsetneq \left(a_2, b_1\right)
+        = p_1$ which contradicts
+        the maximality of $p_2$.
+    \end{proof}
+    \begin{thm}
+        Let $F$ be a family of intervals
+        with $\omega\left(F\right)=2$.
+        $\chi\left(F\right) \leq 5$.         
+    \end{thm}        
+    \begin{proof}
+        We construct the desired
+        coloring by induction
+        on $k$. \todo{$k$ is the 
+        number of ``layers''}
+        Let $k = 1$.
+        Let $F_1$ be the subset
+        of intervals of $F$ that 
+        do not lie in the intersection
+        of overlapping intervals of $F$.
+        By Lemma \ref{lemma:4.4},
+        there exists a coloring
+        $f_1$ of $F_1$ with colors
+        $\left\{1,2,3\right\}$ such
+        that for every $\left(a,b\right)
+        \in F_1$, the intervals
+        of the family $F^{0}_{1}
+        \left(b\right) \setminus F^{0}\left(a\right)$
+        are colored with the same
+        color.
+        By Lemma \ref{lemma:4.5},
+        the intervals of the family
+        $P^{0}\left(F_1\right)$ 
+        do not overlap. By definition
+        of $F_1$, each interval in 
+        $F \setminus F_1$ is contained
+        in some (maximal) intersection
+        $p \in P^{0}\left(F_1\right)$.
+        Consider that the following
+        construction has been done
+        for $k - 1$ with $k \geq 2$.
+        We want the following properties
+        to be true.
+        \begin{enumerate}
+            \item The intervals in
+                $F' \defeq 
+                \bigcup_{i=1}^{k-1} F_{i}$
+                (where the $F_{i}$s
+                might not be disjoint)
+                \todo{Aren't they?
+                No. As we will see later
+                we will have the intervals
+                $h_{t+1}, \ldots, h_{s}$
+                which are in $F'$ 
+                but also in $F_{p, k}$.}
+                are colored with colors
+                $\left\{1, \ldots, 5\right\}$.
+            \item The intervals in
+                $F \setminus F'$ do not
+                overlap with intervals
+                in $\bigcup_{i=1}^{k-2}
+                F_{i} \setminus F_{k-1}$.
+                \todo{Otherwise $\omega\left(F\right)
+                \geq 3$}
+                \label{cond:2}
+            \item \label{cond:3} All intervals in 
+                $F \setminus F'$ 
+                are contained in some 
+                interval $p \in 
+                P^{0}\left(F^{k-1}\right)$.
+                \todo{For 
+                $k = 1$, this is
+                Lemma \ref{lemma:4.5}}
+            \item For each $p =
+                \left(c, d\right) \in 
+                P^{0}\left(F_{k-1}\right)$ 
+                either only one
+                color is used to color
+                all intervals in 
+                $F^{0}_{k-1}\left(c\right) 
+                \setminus F^{0}_{k-1}\left(d\right)$,
+                and no more than 
+                two colors are used to 
+                colors intervals
+                of $F^{0}_{k-1}\left(d\right)
+                \setminus F^{0}_{k-1}\left(d\right)$
+                or viceversa.
+        \end{enumerate}
+        Let us show how to carry out the 
+        $k$-th step of this construction.
+        If $F \setminus F' = \emptyset$,
+        then we are done and we have 
+        the desired coloring.
+        Consider any interval
+        $p = \left(c, d\right)
+        \in P^{0}\left(F_{k-1}\right)$,
+        which contains at least one interval
+        of $F \setminus F'$. \todo{by 
+        condition \ref{cond:3}}
+        Let
+        \begin{align*}
+            F^{0}_{k-1}\left(c\right) \setminus 
+            F^{0}_{k-1}\left(d\right)
+            &= \left\{h_{j}\right\}_{j=1}^{t}
+            = \left\{\left(c_{j},
+            d_{j}\right)\right\}_{j=1}^{t} \\
+            F^{0}_{k-1}\left(d\right) \setminus 
+            F^{0}_{k-1} \left(c\right)
+            &= \left\{h_{j}\right\}_{j=t+1}^{s}
+            = \left\{\left(c_{j},
+            d_{j}\right)\right\}_{j=t+1}^{s},
+        \end{align*}
+        and $p = \left(c_{s}, d_{s}\right)
+        \cap \left(c_{t}, d_{t}\right) = 
+        \left(c_{s}, d_{t}\right)$.
+        As already noted, each
+        family consists of
+        nested intervals.
+        \todo{otherwise
+        $\omega\left(F\right) \geq 3$}
+        Without loss of generality,
+        suppose that
+        $\gamma_1 \in \left\{1, 3\right\}$
+        is the color used to
+        color the intervals
+        $h_{t+1}, \ldots, h_{s}$
+        and let $\gamma_{2}, \gamma_{3}$
+        \todo{Could also be
+        only $\gamma_2$}
+        be the colors used to 
+        color
+        $\left\{h_1, \ldots h_t\right\}$.
+        
+        Let $I_{p}$ be the
+        set of intervals in $F$ 
+        contained in $p$,
+        the intervals $h_{t+1},
+        \ldots, h_{s}$ and the 
+        interval 
+        $\left(d, d_{s} + 1\right)$.
+        Let $F_{k, p}$ be 
+        the set of intervals in $I_{p}$ 
+        which are not contained in
+        the overlap of any two
+        intervals in $I_{p}$. 
+
+        Let us show that the 
+        intervals from $I_{p}
+        \setminus F_{k, p}$ do 
+        not overlap with 
+        any of the intervals of
+        $F' \setminus \left\{
+        h_{t+1},\ldots,h_{s}\right\}$.
+        \todo{The following
+        levels can only 
+        overlap with 
+        $\left\{h_{t+1},
+        \ldots, h_{s}\right\}$}.
+        By condition \ref{cond:2}
+        of our induction hypothesis, 
+        intervals from
+        $F' \setminus \left\{h_{t+1},
+        \ldots, h_{s}\right\}$
+        that can overlap with 
+        elements in $I_{p} \setminus 
+        F_{k,p}$ are only intervals
+        in $\left\{h_1, \ldots, h_{t}\right\}$.
+        \todo{This is true for intervals
+        overlapping with $p$, but what
+        about intervals overlapping
+        with $d$?
+        The only intervals in
+        $I_{p}$ overlapping
+        with $\left(d, d_{s} + 1\right)$ 
+        are $h_{t+1},\ldots,
+        h_{s}$ which are
+        also in $F_{k, p}$.}
+        Let $\left(a_1, b_1\right) \in I_{p}$ 
+        be an interval contained in the
+        overlapping of
+        $\left(a_2, b_2\right), 
+        \left(a_3, b_3\right)
+        \in I_{p}$ and thus
+        overlapping with some
+        $h_{j} =\left(c_{j}, d_{j}\right)$ 
+        for $1 \leq j \leq t-1$.
+        Then $a_{i} > c_{s}$ for
+        all $i \in \left\{1, 2, 3\right\}$.
+        We also get $c_{j} < c_{s}$,
+        $a_1 < d_{j} < b_1$. Hence
+        $h_{j}$, $\left(a_2, b_2\right)$ 
+        and $\left(a_3, b_3\right)$ 
+        pairwise overlap.
+        Which is a contradiction.
+
+        If $p$ contains at least one interval,
+        then $F_{k, p} \setminus \left(h_{t+1},
+        \ldots, h_{s}\right) \cup 
+        \left\{\left(d, d_{s} + 1\right)\right\}
+        \neq \emptyset$.
+        By Lemma \ref{lemma:4.4}
+        (replacing $F^{0}\left(b\right)
+        \setminus F^{0}\left(a\right)$
+        with $F^{0}\left(a\right)
+        \setminus F^{0}\left(b\right)$),
+        we can color $F_{k, p}$ 
+        with colors from
+        $\left\{1,2,3,4,5\right\} \setminus 
+        \left\{\gamma_2, \gamma_3\right\}$
+        such that
+        for each
+        $\left(a, b\right) \in 
+        F_{k, p}$,
+        the interval from
+        $F^{0}_{k, p}\left(a\right) \setminus 
+        F^{0}_{k, p}\left(b\right)$
+        have the same color.
+        At the same time,
+        since $\left\{h_{t+1},
+        \ldots, h_{s}\right\}
+        = F^{0}_{k, p}\left(d\right)
+        \setminus F^{0}\left(d_{s} + 1\right)$
+        \reversemarginpar
+        \todo{Actually 
+        $F^{0}\left(d_{s} + 1\right)$ 
+        is empty, but we want
+        to apply the statement
+        of Lemma \ref{lemma:4.4}
+        rigorously. This
+        is why we introduce
+        the segment $\left(d, d_{s} + 1\right)$ 
+        in the first place.}
+        \reversemarginpar
+        we can assume that 
+        $h_{t+1}, \ldots,
+        h_{s}$ is colored 
+        with (only) $\gamma_1$.
+        
+        Let us denote $F_{k, p}' = 
+        F_{k, p} \setminus \left\{
+        \left(d, d_{s} + 1\right)\right\}$.
+        It is easy to see that the coloring of
+        $F_{k, p}'$ is compatible
+        with that of
+        $F'$.
+        Carrying out similar constructions
+        for each $p \in P^{0}\left(F_{k-1}\right)$
+        containing at least one uncolord
+        interval of $F$, let
+        $F_{k} \defeq \bigcup_{p \in 
+        P^{0}\left(F_{k-1}\right)} F_{k, p}'$.
+
+        One can check that the 
+        induction hypotheses hold
+        for $k$.
+        Also, the number of uncolored
+        vertices strictly decreseas 
+        at each step. Therefore
+        the coloring will be 
+        completed in a finite
+        number of iterations.
+    \end{proof}
 \end{document}
+    
 
