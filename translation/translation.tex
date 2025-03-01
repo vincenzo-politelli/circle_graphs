@@ -1,8 +1,8 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 
 % format
-\usepackage[a4paper, total={6in, 9in}]{geometry}                            
-
+% \usepackage[a4paper, total={6in, 9in}]{geometry}                         
+\usepackage{pdfcomment}
 % math symbols
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -70,7 +70,8 @@
     Without loss of generality,
     we only consider the interval
     models containing open intervals
-    \todo{I am assuming opennes}
+    \pdfcomment[icon=Note, color=yellow]
+    {I am assuming opennes}
     in which no two intervals
     share an endpoint.
 
@@ -110,7 +111,8 @@
         $\left(a, b\right) \in F$, 
         the intervals in $F^{0}\left(a\right) 
         \setminus F^{0}\left(b\right)$
-        have the same color. \todo{
+        have the same color. \pdfcomment[icon=Note,
+        color=yellow]{
         I guess that the remarkable
         result is the 3-coloring
         part}
@@ -124,7 +126,8 @@
         to this lemma with the
         least cardinality.
         Clearly, $G\left(F\right)$ is 
-        connected. \todo{if $G\left(F\right)$ was
+        connected. \pdfcomment[icon=Note, color=yellow]
+        {if $G\left(F\right)$ was
         not connected, at least one
         of its connected components
         would countervene to the lemma
@@ -158,7 +161,7 @@
         we have
         $F^{-}\left(b_{i}\right) = \emptyset$ 
         or $F^{+}\left(a_{i+1}\right) = \emptyset$.
-        \todo{That would imply
+        \pdfcomment[icon=Note, color=yellow]{That would imply
         that $i = 1$ or $i = t$ 
         for all $i \in
         \left\{1, \ldots, t\right\}$
@@ -247,7 +250,8 @@
         and $h', h_{i+1}
         \in F_1$, then $f\left(h'\right)
         \neq 2 = f\left(h''\right)$.
-        \todo{So far we proved that
+        \pdfcomment[icon=Note, color=yellow]
+        {So far we proved that
         the colorings $f_1$ and 
         $f_2$ can be fused into 
         one coloring $f$.}
@@ -255,7 +259,8 @@
         that for all $\left(a, b\right) \in F$
         all intervals in $F^{0}\left(b\right)
         \setminus F^{0}\left(a\right)$
-        have the same color. \todo{
+        have the same color. \pdfcomment[icon=Note,
+        color=yellow]{
         We can do this by introducing 
         a trick like $\left(d, d_{s} + 1\right)$.
         This time it should be just
@@ -268,7 +273,8 @@
         $F^{-}\left(b_{i}\right) = \emptyset$ and
         $F^{+}\left(a_{i+1}\right) = \emptyset$ 
         for all $i \in \left\{1, \ldots, t-1\right\}$.
-        \todo{Now that we have this
+        \pdfcomment[icon=Note, color=yellow]
+        {Now that we have this
         why do we go on?}
 
         We have $\left|F^{+}\left(a_{2}\right)\right| \geq
@@ -332,12 +338,14 @@
         of color $\delta$ with color 2,
         we obtain a 
         new coloring $f'$ of 
-        $F \setminus \left\{h_2\right\}$. \todo{
+        $F \setminus \left\{h_2\right\}$. \pdfcomment[icon=Note,
+        color=yellow]{
         We essentially flip 2 and $\delta$,
         if there was no conflict
         before, there is no conflict
         now} Since $h_3 \in F^{+}\left(b_2'\right)$,
-        \todo{since $h_2'$ and $h_3$ do not
+        \pdfcomment[icon=Note, color=yellow]
+        {since $h_2'$ and $h_3$ do not
         overlap} we get
         $f'\left(h_2'\right)=2$ and
         $f'\left(h_3\right) \neq 2$.
@@ -345,7 +353,8 @@
         color 2, we obtain a coloring
         of $F$ with the properties
         required by the present lemma.
-        \todo{this is because $F^{0}\left(a_2\right)
+        \pdfcomment[icon=Note, color=yellow]
+        {this is because $F^{0}\left(a_2\right)
         = \left\{h_1\right\}$ and
         $F^{0}\left(b_2\right) = \left\{h_3\right\}$}
     \end{proof}
@@ -371,7 +380,8 @@
         Let $p_1=h_1 \cap h_2 \in 
         P^{0}\left(F\right)$ and
         $p_2=h_3 \cap h_4 \in P^{0}\left(F\right)$.
-        \todo{Possibly $h_3=h_2$}
+        \pdfcomment[icon=Note, color=yellow]
+        {Possibly $h_3=h_2$}
         Therefore, $\left(p_1 \cap p_2\right) =
         \left(a_4, b_1\right)$.
         So $a_1 < a_2 < a_4
@@ -398,7 +408,8 @@
     \begin{proof}
         We construct the desired
         coloring by induction
-        on $k$. \todo{$k$ is the 
+        on $k$. \pdfcomment[icon=Note, color=yellow]
+        {$k$ is the 
         number of ``layers''}
         Let $k = 1$.
         Let $F_1$ be the subset
@@ -434,7 +445,8 @@
                 \bigcup_{i=1}^{k-1} F_{i}$
                 (where the $F_{i}$s
                 might not be disjoint)
-                \todo{Aren't they?
+                \pdfcomment[icon=Note, color=yellow]
+                {Aren't they?
                 No. As we will see later
                 we will have the intervals
                 $h_{t+1}, \ldots, h_{s}$
@@ -447,7 +459,8 @@
                 overlap with intervals
                 in $\bigcup_{i=1}^{k-2}
                 F_{i} \setminus F_{k-1}$.
-                \todo{Otherwise $\omega\left(F\right)
+                \pdfcomment[icon=Note, color=yellow]
+                {Otherwise $\omega\left(F\right)
                 \geq 3$}
                 \label{cond:2}
             \item \label{cond:3} All intervals in 
@@ -455,7 +468,7 @@
                 are contained in some 
                 interval $p \in 
                 P^{0}\left(F^{k-1}\right)$.
-                \todo{For 
+                \pdfcomment[icon=Note, color=yellow]{For 
                 $k = 1$, this is
                 Lemma \ref{lemma:4.5}}
             \item For each $p =
@@ -482,7 +495,7 @@
         $p = \left(c, d\right)
         \in P^{0}\left(F_{k-1}\right)$,
         which contains at least one interval
-        of $F \setminus F'$. \todo{by 
+        of $F \setminus F'$. \pdfcomment[icon=Note, color=yellow]{by 
         condition \ref{cond:3}}
         Let
         \begin{align*}
@@ -503,7 +516,7 @@
         As already noted, each
         family consists of
         nested intervals.
-        \todo{otherwise
+        \pdfcomment[icon=Note, color=yellow]{otherwise
         $\omega\left(F\right) \geq 3$}
         Without loss of generality,
         suppose that
@@ -512,7 +525,7 @@
         color the intervals
         $h_{t+1}, \ldots, h_{s}$
         and let $\gamma_{2}, \gamma_{3}$
-        \todo{Could also be
+        \pdfcomment[icon=Note, color=yellow]{Could also be
         only $\gamma_2$}
         be the colors used to 
         color
@@ -538,7 +551,7 @@
         any of the intervals of
         $F' \setminus \left\{
         h_{t+1},\ldots,h_{s}\right\}$.
-        \todo{The following
+        \pdfcomment[icon=Note, color=yellow]{The following
         levels can only 
         overlap with 
         $\left\{h_{t+1},
@@ -552,7 +565,8 @@
         elements in $I_{p} \setminus 
         F_{k,p}$ are only intervals
         in $\left\{h_1, \ldots, h_{t}\right\}$.
-        \todo{This is true for intervals
+        \pdfcomment[icon=Note, color=yellow]
+        {This is true for intervals
         overlapping with $p$, but what
         about intervals overlapping
         with $d$?
@@ -607,8 +621,7 @@
         \ldots, h_{s}\right\}
         = F^{0}_{k, p}\left(d\right)
         \setminus F^{0}\left(d_{s} + 1\right)$
-        \reversemarginpar
-        \todo{Actually 
+        \pdfcomment[icon=Note, color=yellow]{Actually 
         $F^{0}\left(d_{s} + 1\right)$ 
         is empty, but we want
         to apply the statement
@@ -617,7 +630,6 @@
         is why we introduce
         the segment $\left(d, d_{s} + 1\right)$ 
         in the first place.}
-        \reversemarginpar
         we can assume that 
         $h_{t+1}, \ldots,
         h_{s}$ is colored 
