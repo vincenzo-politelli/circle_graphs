@@ -396,7 +396,7 @@
         = p_1$ which contradicts
         the maximality of $p_2$.
     \end{proof}
-    \begin{thm}
+    \begin{thm} \label{thm:circle}
         Let $F$ be a family of intervals
         with $\omega\left(F\right)=2$.
         $\chi\left(F\right) \leq 5$.         
@@ -619,7 +619,7 @@
         \pdfmarkupcomment{since $\left\{h_{t+1},
         \ldots, h_{s}\right\}
         = F^{0}_{k, p}\left(d\right)
-        \setminus F^{0}\left(d_{s} + 1\right)$}
+        \setminus F^{0}_{k, p}\left(d_{s} + 1\right)$}
         {Actually 
         F0(ds + 1) 
         is empty, but we want
@@ -643,7 +643,7 @@
         $F'$.
         Carrying out similar constructions
         for each $p \in P^{0}\left(F_{k-1}\right)$
-        containing at least one uncolord
+        containing at least one uncolored
         interval of $F$, let
         $F_{k} \defeq \bigcup_{p \in 
         P^{0}\left(F_{k-1}\right)} F_{k, p}'$.
@@ -753,6 +753,18 @@
          \left\{h_{i} \in F \middle|
          a_{1}^{\left(i\right)}
          < c < a_{k_{i}}^{\left(i\right)}\right\}, \\
+         F^{+}\left(c\right) \defeq
+         \left\{h_{i} \in F \middle|
+         c < a_{1}^{\left(i\right)}\right\},\\
+         F^{-}\left(c\right) \defeq
+         \left\{h_{i} \in F
+         \middle| a_{k_{i}}^{\left(i\right)} < c\right\}.
+     \end{gather*}
+     We also importantly define for
+     $1 \leq i \leq n$ and 
+     $1 < j \leq k_{i}$, 
+     the following:
+     \begin{gather*}
          \widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)
          \defeq \left\{
          h_{i'} \in F \middle|
@@ -760,13 +772,7 @@
          < a_{j}^{\left(i\right)}
          < a_{j'+1}^{\left(i'\right)}
          \text{ for some }
-         1 \leq j' < k_{i'} \right\},\\
-         F^{+}\left(c\right) \defeq
-         \left\{h_{i} \in F \middle|
-         c < a_{1}^{\left(i\right)}\right\},\\
-         F^{-}\left(c\right) \defeq
-         \left\{h_{i} \in F
-         \middle| a_{k_{i}}^{\left(i\right)} < c\right\}.
+         1 \leq j' < k_{i'} \right\},
      \end{gather*}
      For any $h_{i} \in F^{0}\left(c\right)$,
      denote $I_{c}\left(h_{i}\right)
@@ -799,6 +805,10 @@
      = I_{b^{\left(i,i'\right)}}\left(h_{i'}\right)$ 
      and let $a^{\left(i',i\right)}
      \defeq a_{j'}^{\left(i'\right)}$.
+     We say that the interval
+     $\left(a^{\left(i', i\right)},
+     b^{\left(i, i'\right)}\right)$ 
+     is the overlap of $h_{i}$, $h_{i'}$.
 
      Consider the set of intervals
      of the form $\left(a^{\left(i',i\right)},
@@ -828,10 +838,7 @@
      \begin{fact}
          For any $\left(a_{j}^{\left(i\right)}\right)$,
          the elements of
-         $F^{0}\left(a_{j}^{\left(i\right)}\right)
-         \setminus \left(
-         F^{0}\left(a_{1}^{\left(i\right)}\right)
-         \cap F\left(a_{k_{i}}^{\left(i\right)}\right)\right)$ 
+         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
          are nested. That is, let
          \begin{gather*}
              F^{0}\left(a_{j}^{\left(i\right)}\right) \setminus 
@@ -855,13 +862,9 @@
      
      \begin{fact}
          For any two polygons
-         $h \in F^{0}\left(a_{j}^{\left(i\right)}\right) \setminus 
-         \left(F^{0}\left(a_{1}^{\left(i\right)}\right) \cap 
-         F^{0}\left(a_{k_{i}}^{\left(i\right)}\right)\right)$ 
+         $h \in \widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
          and 
-         $h' \in F^{0}\left(a_{j'}^{\left(i\right)}\right) \setminus 
-         \left(F^{0}\left(a_{1}^{\left(i\right)}\right) \cap 
-         F^{0}\left(a_{k_{i}}^{\left(i\right)}\right)\right)$,
+         $h' \in \widetilde{F}^{0}\left(a_{j'}^{\left(i\right)}\right)$, 
          we have that $h$ and $h'$
          do not overlap.    
      \end{fact}
@@ -869,7 +872,7 @@
      We now prove the following
      technical lemma.
 
-     \begin{lemma}
+     \begin{lemma} \label{lemma:poly}
          Let $F \defeq \left\{h_{i}\right\}_{i =1}^{n}$ 
          be a family of polygons with
          $\omega\left(F\right) = 2$.
@@ -881,9 +884,10 @@
          Then $\chi\left(F\right) \leq 3$.
          Moreover, there exists
          a 3-coloring of $F$ such
-         that for all $i, j$,
+         that for all $1 \leq i \leq n$
+         and $1 < j \leq k_{i}$,
          all polygons in
-         $F^{0}\left(a_{j}^{\left(i\right)}\right)$.
+         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$.
          We call such coloring a
          `good coloring'.
      \end{lemma}
@@ -1236,6 +1240,221 @@
          to obtain a good coloring of $F$.
          Again, a contradiction.
      \end{proof}
+
+     We first establish some more notation.
+     Namely, using the same notational conventions
+     used up to this point, we denote, for
+     $1 \leq i' \leq n$ and $1 \leq j' < k_{i'}$
+
+     \begin{gather*}
+         \overline{F}^{0}\left(a_{j}^{\left(i\right)}\right) \defeq
+         \left\{h_{i'} \in F \middle| 
+         a_{j}^{\left(i\right)} <
+         a_{j'}^{\left(i'\right)} <
+         a_{j+1}^{\left(i\right)} <
+         a_{k_{i'}}^{\left(i'\right)}
+         \text{ for some }
+         1 \leq j < k_{i}\right\}
+     \end{gather*}
+
+     We remark in passing that, by symmetry,
+     Lemma \ref{lemma:poly} remains 
+     true if we
+     replace $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
+     with $\overline{F}^{0}\left(a_{j}^{\left(i\right)}\right)$.
+     This is because, the case of $t = 1$
+     and the proof of $t \leq 3$ are exactly
+     the same. Also, when 
+     dealing with the cases $t = 2$ 
+     and $t = 3$, we use the minimality
+     of $F$ to specify some structural
+     properties of $F$. After doing so,
+     the proof of this alternative version of
+     Lemma \ref{lemma:poly} is given by 
+     the same argument as in the proof
+     of such lemma, only by composing
+     the stereographic projection
+     generating our representation
+     of polygon circle graphs with
+     a symmetry of $\mathbb{R}$ with
+     respect to the point 0.
+
+     We now present our main result
+     with similar techniques as the one
+     employed in the proof of
+     Theorem \ref{thm:circle}.
+
+     \begin{thm}
+         Let $F$ be a family of
+         polygons with $\omega\left(F\right) = 2$.
+         Then, $\chi\left(F\right) \leq 5$.
+     \end{thm}
+     \begin{proof}
+         Let $F = \left\{h_{i}\right\}_{i = 1}^{n}$
+         be a family of polygons with
+         $\omega\left(F\right) = 2$.
+         We construct the desired
+         coloring inductively on $k$.
+
+         For $k = 1$, let $F_1 \subseteq F$
+         be the subset of polygons
+         $h_{i} \in F$ such that 
+         there is no $\left(a, b\right)
+         \in P^{0}\left(F\right)$
+         with $a < a_1^{\left(i\right)} <
+         a_{k_{i}}^{\left(i\right)} < b$.
+         By Lemma \ref{lemma:poly} there
+         exists a coloring $f_1$ of $F_1$
+         with colors $\left\{1, 2, 3\right\}$ 
+         such that for every $h_{i} \in F_1$ 
+         and $1 < j \leq k_{i}$,
+         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
+         have the same color.
+         By the definition of $F_1$,
+         each interval in $F \setminus F_1$ 
+         is contained into some (unique)
+         intersection $p \in P^{0}\left(F_1\right)$.
+         Consider that the following construction 
+         has been done for $k - 1$
+         with $k \geq 2$. We want the 
+         following properties to be true.
+         \begin{enumerate}
+             \item The polygons in $F' \defeq 
+             \bigcup_{i =1}^{k-1} F_{i}$ 
+             (where the $F_{i}$s might not
+             be disjoint) are colored with colors
+             $\left\{1, 2, 3, 4, 5\right\}$.
+             \item The polygons in $F \setminus F'$ 
+             do not overlap with
+             intervals in
+             $\bigcup_{i =1}^{k-2} F_{i} \setminus F_{k-1}$.
+             \item All polygons
+             $h_{i} \in F \setminus F'$ 
+             are such that
+             $a < a_1^{\left(i\right)}
+             < a_{k_{i}}^{\left(i\right)} < b$
+             for some
+             $\left(a, b\right) \in P^{0}\left(F_{k-1}\right)$.
+             \item For each
+             $p \in \left(a^{\left(i', i\right)},
+             b^{\left(i, i'\right)}\right)
+             \in P^{0}\left(F_{k-1}\right)$ 
+             either only one color is 
+             used to color all polygons in
+             $\overline{F}_{k-1}^{0}\left(a^{\left(i', i\right)}\right)$ 
+             and no more than two colors are used
+             to color intervals in
+             $\widetilde{F}_{k-1}^{0}\left(b^{\left(i,i'\right)}\right)$.
+         \end{enumerate}
+         Let us show how to carry out
+         the $k$-th step of this
+         construction.
+         If $F \setminus F' = \emptyset$,
+         then we are done and we have
+         the desired coloring.
+         Consider any interval
+         $p = \left(a^{\left(i', i\right)},
+         b^{\left(i, i'\right)}\right)
+         \in P^{0}\left(F_{k-1}\right)$,
+         such that there
+         exists $h_{j}$ with
+         $a^{\left(i', i\right)} <
+         a_1^{\left(j\right)} < a_{k_{j}}^{\left(j\right)}
+         < b^{\left(i, i'\right)}$.
+         Denote:
+         \begin{gather*}
+             \overline{F}^{0}\left(a^{\left(i', i\right)}\right) = 
+             \left\{u_{j}\right\}_{j = 1}^{t} = 
+             \left\{\left(c_1^{j}, \ldots, c_{l_{j}}^{\left(j\right)}\right)\right\}_{j =1}^{t} \\
+             \widetilde{F}^{0}\left(b^{\left(i, i'\right)}\right) = 
+             \left\{u_{j}\right\}_{j = t+1}^{s} = 
+             \left\{\left(c_1^{\left(j\right)}, \ldots,
+             c_{l_{j}}^{\left(j\right)}\right)\right\}_{j =t +1}^{s}.
+         \end{gather*}
+         We note that the polygons
+         $\left\{u_{j}\right\}_{j=1}^{t}$ 
+         and $\left\{u_{j}\right\}_{j=t+1}^{s}$ 
+         are ordered from innermost
+         to outermost so that
+         $p = \left(c_1^{s}, c_{l_{s}}^{\left(s\right)}\right)
+         \cap \left(c_1^{\left(t\right)},
+         c_{l_{t}}^{\left(t\right)}\right)$.
+         Without loss of generality,
+         suppose that $\gamma_1 \in 
+         \left\{1, 3\right\}$ is the
+         color of the polygons 
+         $u_{t+1}, \ldots, u_{s}$ 
+         and let $\gamma_2, \gamma_3$
+         be the colors of the polygons
+         $u_{t+1}, \ldots, u_{s}$ 
+         and let $\gamma_2$, $\gamma_3$
+         be the colors of the polygons
+         $u_1, \ldots, u_{t}$.
+         
+         Let $I_{p}$ be the set of polygons
+         where vertices are all
+         in $p$, the polygons
+         $u_{t+1}, \ldots, u_{s}$ and 
+         the segment $\left(b^{\left(i, i'\right)},
+         c_{l_{s}}^{\left(s\right)} + 1\right)$.
+         Let $F_{k, p}$ be the set of
+         polygons in $I_{p}$ whose 
+         vertices are not all in
+         the overlap of two polygons
+         in $I_{p}$.
+         By the same argument as the
+         one used in the proof of 
+         Theorem \ref{thm:circle},
+         polygons in $I_{p} \setminus F_{k, p}$ 
+         do not overlap with 
+         any of the polygons of
+         $F' \setminus \left\{u_{t+1}, \ldots
+         , u_{s}\right\}$.
+         If $p$ contains at least
+         one interval, 
+         then 
+         $F_{k, p} \setminus 
+         \left\{u_{t + 1}, \ldots,
+         u_{s}\right\} \cup 
+         \left\{b^{\left(i, i'\right)}, 
+         c_{l_{s}}^{\left(s\right)}\right\}
+         \neq \emptyset$.
+         By Lemma \ref{lemma:poly},
+         we can color $F_{k, p}$ with
+         colors from 
+         $\left\{1, 2, 3, 4, 5\right\} \setminus 
+         \left\{\gamma_2, \gamma_3\right\}$
+         such that for each $h_{i} \in F_{k, p}$,
+         for all
+         $1 \leq j < k_{i}$, the polygons in
+         $\overline{F}_{k, p}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
+         share the same color. At the same time,
+         since $\left\{u_{t +1}, \ldots, u_{s}\right\} = 
+         \overline{F}_{k, p}^{0}\left(c_{l_{s}}^{\left(s\right)} + 1\right)$,
+         we can assume that $u_{t + 1}, \ldots, u_{s}$ 
+         is colored (only) with $\gamma_1$.
+
+         Let us denote $F'_{k, p} \defeq
+         F_{k, p} \setminus \left\{\left(
+         b^{\left(i, i'\right)},
+         c_{l_{s}}^{\left(s\right)} + 1\right)\right\}$.
+         It is easy to see that the coloring of
+         $F'_{k, p}$ is compatible with that 
+         of $F'$. Carrying out similar 
+         constructions for each 
+         $p \in P^{0}\left(F_{k-1}\right)$ 
+         containing at least one uncolored
+         polygons of $F$, let 
+         $F_{k} \defeq \bigcup_{p \in P^{0}\left(F_{k -1}\right)}
+         F'_{k, p}$.
+
+         One can ckeck that the induction
+         hypotheses hold for $k$.
+         Also, the number of uncolored polygons
+         strictly decreases at each step.
+         Therefore, the desired coloring will be completed
+         in a finite number of iterations.
+     \end{proof}    
 \end{document}
     
 
