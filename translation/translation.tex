@@ -28,6 +28,7 @@
 \newtheorem{defn}[thm]{Definition}
 \newtheorem{cor}[thm]{Corollary}
 \newtheorem{exo}[thm]{Exercise}
+\newtheorem{fact}[thm]{Fact}
 
 % definition equal
 \newcommand{\defeq}{\vcentcolon=}
@@ -57,7 +58,7 @@
 
 \begin{document}
 
-    \section{Algorithms for coloring circle graphs}
+    \section{Coloring circle graphs}
     
     \textbf{WARNING}: intervals
     $h_1$, $h_2$ overlap if
@@ -111,8 +112,8 @@
         of $F$ such that 
         \pdfmarkupcomment{for all
         $\left(a, b\right) \in F$, 
-        the intervals in $F^{0}\left(a\right) 
-        \setminus F^{0}\left(b\right)$
+        the intervals in $F^{0}\left(b\right) 
+        \setminus F^{0}\left(a\right)$
         have the same color.}
         {I guess that the remarkable
         result is the 3-coloring
@@ -261,12 +262,6 @@
         all intervals in $F\left(b\right)
         \setminus F\left(a\right)$
         have the same color.} 
-        {We can do this by introducing 
-        a trick like $\left(d, d_{s} + 1\right)$.
-        This time it should be just
-        $h_{i}$ added
-        to $F_2$. But it is already
-        there, so OK.}
         Thus
         $f$ is a 3-coloring of $F$,
         which contradicts our choice of $F$.
@@ -485,7 +480,7 @@
                 two colors are used to 
                 colors intervals
                 of $F^{0}_{k-1}\left(d\right)
-                \setminus F^{0}_{k-1}\left(d\right)$
+                \setminus F^{0}_{k-1}\left(c\right)$
                 or viceversa.
         \end{enumerate}
         Let us show how to carry out the 
@@ -663,6 +658,584 @@
         completed in a finite
         number of iterations.
     \end{proof}
+    
+    \section{Coloring polygon circle graphs}
+
+    We define polygon circle
+    graphs as the set of intersection
+    graphs of polygons
+    (including segments)
+    inscribed in a circle.
+    For the sake of simplicity,
+    we will only consider
+    families of polygons
+    in which no two
+    vertices coincide.
+    The class of circle
+    graphs can be obtained
+    by restricting the
+    choice of polygons
+    to segments.
+
+    Like circle graphs, we
+    handle polygon
+    circle graphs by looking
+    at the stereographic projection
+    of the circle onto $\mathbb{R}$.
+    Thus, a polygon circle
+    graph is represented by a 
+    family $\left\{h_{i}\right\}_{i=1}^{n}$
+    with 
+    $\left(a_{1}^{\left(i\right)},
+    \ldots, a_{k_{i}}^{\left(i\right)}\right)$ 
+    for some $k_{i} \geq 1$ 
+    with $a^{\left(i\right)}_{j} \in \mathbb{R}$
+    being the image of
+    the stereographic projection
+    of a vertex of $h_{i}$.
+
+    Given a familiy
+    $F = \left\{h_{i}\right\}_{i=1}^{n}$ 
+    of polygons, we denote
+    the corresponding
+    intersection graph $G\left(F\right)$.
+    By abuse of notation,
+    we will denote
+    $\omega\left(G\left(F\right)\right)$ 
+    by $\omega\left(F\right)$.
+    Given two polygons
+    $h_{i}, h_{i'}$ in $F$,
+    we say that $h_{i}$ and
+    $h_{i'}$ overlap 
+    if there exists indices 
+    $j$ and $j'$ such that
+    $\left(a_{j}^{\left(i\right)},
+     a_{j+1}^{\left(i\right)}\right)$ 
+     and $\left(a_{j'}^{\left(i'\right)},
+     a_{j'+1}^{\left(i'\right)}\right)$ 
+     overlap.
+
+     Given a polygon
+     $h \defeq \left(
+     a_{1}, \ldots, a_{k}\right)$,
+     a contraction of $h$,
+     is a polygon $h'$ 
+     of the form
+     $\left(a_{1}, \ldots,
+     a_{i-1}, a_{i+1}, \ldots
+     a_{k}\right)$ 
+     where indices are
+     unerstood modulo $k$.
+     Consider a family of
+     polygons
+     $F = \left\{h_{i}\right\}_{i=1}^{n}$.
+     Let $F'$ be the family
+     of polygons generated
+     by contracting one
+     polygon in $F$.
+     We define the partial order
+     `$\prec$' on the set
+     of polygon circle graphs
+     to be the order generated
+     by the relations $F' \prec F$.
+     Notice that $\prec$ is
+     well-founded since,
+     if $F' \prec F$,
+     the total number of 
+     vertices of polygons in
+     $F'$ is strictly less than
+     that of the polygons in $F$.
+
+     Let $c \in \mathbb{R}$.
+     We establish the following notation.
+     \begin{gather*}
+         F^{0}\left(c\right) \defeq
+         \left\{h_{i} \in F \middle|
+         a_{1}^{\left(i\right)}
+         < c < a_{k_{i}}^{\left(i\right)}\right\}, \\
+         \widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)
+         \defeq \left\{
+         h_{i'} \in F \middle|
+         a_{1}^{\left(i\right)} < a_{j'}^{\left(i'\right)}
+         < a_{j}^{\left(i\right)}
+         < a_{j'+1}^{\left(i'\right)}
+         \text{ for some }
+         1 \leq j' < k_{i'} \right\},\\
+         F^{+}\left(c\right) \defeq
+         \left\{h_{i} \in F \middle|
+         c < a_{1}^{\left(i\right)}\right\},\\
+         F^{-}\left(c\right) \defeq
+         \left\{h_{i} \in F
+         \middle| a_{k_{i}}^{\left(i\right)} < c\right\}.
+     \end{gather*}
+     For any $h_{i} \in F^{0}\left(c\right)$,
+     denote $I_{c}\left(h_{i}\right)
+     \defeq \left(a_{j}^{\left(i\right)},
+     a_{j+1}^{\left(i\right)}\right)$ 
+     such that $c \in 
+     \left(a_{j}^{\left(i\right)},
+     a_{j+1}^{\left(i\right)}\right)$ 
+     and $O_{c}\left(h_{i}\right)
+     \defeq \left(a_{1}^{\left(i\right)},
+     a_{k_{i}}^{\left(i\right)}\right)$.
+     For any polygon $h_{i}$,
+     we call the segment
+     $\left(a_{1}^{\left(i\right)},
+     a_{k_{i}}^{\left(i\right)}\right)$
+     the external
+     segment of $h_{i}$.
+
+     Also, for any two polygons
+     $h_{i}$, $h_{i'}$ be two
+     polygons whose external segments
+     overlap with
+     $a_1^{\left(i\right)} < a_1^{\left(i'\right)}$.
+     Let $\left(a_{j}^{\left(i\right)},
+     a_{j+1}^{\left(i\right)}\right) =
+     I_{a_1^{\left(i'\right)}}\left(h_{i}\right)$
+     and let
+     $b^{\left(i, i'\right)} \defeq a_{j+1}^{\left(i\right)}$.
+     Let $\left(a_{j'}^{i'}, a_{j'+1}^{\left(i'\right)}\right)
+     = I_{b^{\left(i,i'\right)}}\left(h_{i'}\right)$ 
+     and let $a^{\left(i',i\right)}
+     \defeq a_{j'}^{\left(i'\right)}$.
+
+     Consider the set of intervals
+     of the form $\left(a^{\left(i',i\right)},
+     b^{\left(i,i'\right)}\right)$ 
+     and denote it $P\left(F\right)$.
+     Take the inclusion-wise maximal
+     subfamily of such intervals
+     and denote it $P^{0}\left(F\right)
+     \subseteq P\left(F\right)$.
+     
+     \begin{rmk}
+         Notice that, if 
+         $\omega\left(F\right) = 2$,
+         the maximality of
+         $P^{0}\left(F\right)$ 
+         implies that all the
+         intervals in $P^{0}\left(F\right)$
+         are disjoint.
+     \end{rmk}
+
+     From now on, consider
+     $F = \left\{h_{i}\right\}_{i = 1}^{n}$ 
+     be a family of polygons
+     with $\omega\left(F\right)=2$.
+     We have the following two facts.
+
+     \begin{fact}
+         For any $\left(a_{j}^{\left(i\right)}\right)$,
+         the elements of
+         $F^{0}\left(a_{j}^{\left(i\right)}\right)
+         \setminus \left(
+         F^{0}\left(a_{1}^{\left(i\right)}\right)
+         \cap F\left(a_{k_{i}}^{\left(i\right)}\right)\right)$ 
+         are nested. That is, let
+         \begin{gather*}
+             F^{0}\left(a_{j}^{\left(i\right)}\right) \setminus 
+             \left(F^{0}\left(a_{1}^{\left(i\right)}\right) \cap 
+             F^{0}\left(a_{k_{i}}^{\left(i\right)}\right)\right)
+             \eqdef \left\{h_1, \ldots, h_{l}\right\}.
+         \end{gather*}
+         Then, up to relabeling
+         the elements of $F$, we have that
+         \begin{gather*}
+             I_{a_{j}^{\left(i\right)}}\left(h_1\right)
+             \subseteq I_{a_{j}^{\left(i\right)}}\left(h_2\right)
+             \subseteq \cdots
+             \subseteq I_{a_{j}^{\left(i\right)}}\left(h_{l}\right), \\
+             O_{a_{j}^{\left(i\right)}}\left(h_1\right)
+             \subseteq O_{a_{j}^{\left(i\right)}}\left(h_2\right)
+             \subseteq \cdots
+             \subseteq O_{a_{j}^{\left(i\right)}}\left(h_{l}\right).
+         \end{gather*}
+     \end{fact}
+     
+     \begin{fact}
+         For any two polygons
+         $h \in F^{0}\left(a_{j}^{\left(i\right)}\right) \setminus 
+         \left(F^{0}\left(a_{1}^{\left(i\right)}\right) \cap 
+         F^{0}\left(a_{k_{i}}^{\left(i\right)}\right)\right)$ 
+         and 
+         $h' \in F^{0}\left(a_{j'}^{\left(i\right)}\right) \setminus 
+         \left(F^{0}\left(a_{1}^{\left(i\right)}\right) \cap 
+         F^{0}\left(a_{k_{i}}^{\left(i\right)}\right)\right)$,
+         we have that $h$ and $h'$
+         do not overlap.    
+     \end{fact}
+
+     We now prove the following
+     technical lemma.
+
+     \begin{lemma}
+         Let $F \defeq \left\{h_{i}\right\}_{i =1}^{n}$ 
+         be a family of polygons with
+         $\omega\left(F\right) = 2$.
+         Suppose that for any
+         $\left(a, b\right) \in P^{0}\left(F\right)$,
+         there is no $h_{i}$ such
+         that $a < a_1^{\left(i\right)}
+         < a_{k_{i}}^{\left(i\right)} < b$.
+         Then $\chi\left(F\right) \leq 3$.
+         Moreover, there exists
+         a 3-coloring of $F$ such
+         that for all $i, j$,
+         all polygons in
+         $F^{0}\left(a_{j}^{\left(i\right)}\right)$.
+         We call such coloring a
+         `good coloring'.
+     \end{lemma}
+
+     \begin{proof}
+         By way of contradiction,
+         suppose that the statement is
+         false and let
+         $F = \left\{h_{i}\right\}_{i = 1}^{n}$ 
+         be the smallest counterexample
+         to this lemma with respect
+         to the order $\prec$.
+         Up to relabeling the elements
+         of $F$, suppose without loss
+         of generality that
+         $h_{1}, \ldots, h_{t}$ are
+         the polygons of $F$ whose
+         external segments (seen as itervals
+         of the form
+         $\left(a_1^{\left(i\right)}, a_{k_{i}}^{\left(i\right)}\right)$) 
+         are not contained
+         in the external segment of 
+         any other polygon of $F$.
+         We further assume that
+         $a_1^{\left(1\right)} <
+         a_1^{\left(2\right)} < \ldots < 
+         a_1^{\left(t\right)}$.
+         By the minimality of $F$, we get
+         that $G\left(F\right)$ is
+         connected and $h_{i} \cap h_{i+1} \neq \emptyset$
+         for all $i \in \left\{1, \ldots, t-1\right\}$.
+         Therefore, we have that the points
+         $a^{\left(i+1, i\right)}$ and
+         $b^{\left(i, i+1\right)}$ are
+         well-defined for all 
+         $i \in \left\{1, \ldots, t-1\right\}$.
+
+         First, suppose that $t = 1$.
+         In this case, we have $F^{0}\left(a_1^{\left(1\right)}\right)
+         = \emptyset$ and
+         $F^{0}\left(a_{k_1}^{\left(1\right)}\right) = \emptyset$.
+         Thus, contracting
+         $a_{k_{i}}^{\left(1\right)}$ in $h_1$,
+         either does not change the underlying graph,
+         or implies that $G\left(F\right)$ is
+         disconnected. In both cases, we have a contradiction.
+
+         We are now going to prove that
+         for all $i \in \left\{1, \ldots, t -1\right\}$,
+         we have either $F^{-}\left(b^{\left(i, i+1\right)}\right)
+         = \emptyset$ or 
+         $F^{+}\left(a^{\left(i+1, i\right)}\right)
+         = \emptyset$. This is
+         not the case for $t \geq 4$ since,
+         in such case, we would have 
+         $h_1 \in F^{-}\left(b^{\left(2, 3\right)}\right)$
+         and $h_{t} \in F^{+}\left(a^{\left(3, 2\right)}\right)$.
+         Thus, this would imply $t \leq 3$.
+
+         By way of contradiction,
+         suppose that there exists
+         $i_0 \in \left\{1, \ldots, t-1\right\}$
+         such that $F^{-}\left(b^{\left(i_0, i_0+1\right)}\right)
+         \neq \emptyset$ and
+         $F^{+}\left(a^{\left(i_0+1, i_0\right)}\right)
+         \neq \emptyset$.
+         By the minimality of $F$, 
+         we have that
+         $F_1 \defeq F \setminus F^{+}
+         \left(a^{\left\{i_0+1, i_0\right\}}\right)$
+         and
+         $F_2 \defeq F \setminus F^{-}
+         \left(b^{i_0,i_0+1}\right)$ 
+         admit good colorings
+         $f_1$ and $f_2$.
+         Notice that $F_1 \cap F_2 = 
+         \left\{h_{i_0}, h_{i_0+1}\right\}$.
+         So, we can assume without loss
+         of generality that
+         $f_1\left(h_{i_0}\right) = 
+         f_2\left(h_{i_0}\right) = 1$ 
+         and $f_1\left(h_{i_0+1}\right) =
+         f_2\left(h_{i_0+1}\right) =2$.
+         This also allows us to define 
+         the function $f \vcentcolon 
+         F \rightarrow \left\{1, 2, 3\right\}$ 
+         with $f\left(h\right) = f_1\left(h\right)$ 
+         if $h \in F_1$ and 
+         $f\left(h\right) = f_2\left(h\right)$ 
+         if $h \in F_2$.
+         By the maximality
+         of $h_{i_0}$ and $h_{i_0+1}$,
+         a family
+         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$
+         is either entirely contained
+         into $F_1$ or $F_2$.
+         Thus, if $f$ is a coloring,
+         it is also a good coloring.
+
+         We now prove that $f$ is a coloring.
+         Let $h_{i}, h_{i'} \in F$ be overlapping
+         polygons. If both $h_{i}, h_{i'} \in F_1$ 
+         or $h_{i}, h_{i'} \in F_2$, then 
+         $f\left(h_{i}\right) \neq f\left(h_{i'}\right)$
+         by the fact that $f_1$ and $f_2$ 
+         are colorings.
+         Suppose that $h_{i} \in F_1$ and
+         $h_{i'} \in F_2$, then, since for no
+         $\left(a, b\right) \in P^{0}\left(F\right)$ 
+         and $h_{i} \in F$, we deduce that
+         \begin{gather*}
+             a_1^{\left(i\right)} < 
+             a^{\left(i_0+1, i_0\right)} <
+             a_1^{\left(i'\right)} < 
+             a_{k_{i}}^{\left(i\right)} < 
+             b^{\left(i_0, i_0+1\right)} < 
+             a_{k_{i'}}^{\left(i'\right)}.
+         \end{gather*}
+         Now, since $h_{i_0+1}, h_{i'} \in 
+         \widetilde{F}^{0}\left(b^{\left(i_0+1, i_0\right)}\right)$,
+         and $h_{i_0+1}, h_{i'} \in F_2$,
+         since $f_2$ is a good
+         coloring, we have that $f\left(h_{i'}\right) =
+         f\left(h_{i_0+1}\right) = 2$.
+         Now, since $h_{i_0+1}$ and $h_{i}$ 
+         overlap, 
+         $h_{i_0+1}, h_{i} \in F_1$,
+         and $f_1$ is a coloring, we get
+         that $f\left(h_{i_0+1}\right) \neq
+         f\left(h_{i}\right)$.
+         Therefore, $f\left(h_{i}\right) \neq 
+         f\left(h_{i'}\right) = 2$.
+         So $f$ is a coloring and so
+         a good coloring.
+         This contradicts the definition
+         of $F$.
+
+         We thus conclude that
+         $F^{-}\left(b^{\left(i, i+1\right)}\right) = \emptyset$ 
+         or $F^{+}\left(a^{\left(i+1, i\right)}\right) = \emptyset$
+         for all
+         $i \in \left\{1, \ldots, t-1\right\}$ and
+         $t \leq 3$.
+
+         Suppose now that $t = 2$.
+         Suppose that there exists
+         $b^{\left(1,2\right)} < 
+         a_{j}^{\left(2\right)} <
+         a_{k_2}^{\left(2\right)}$.
+         Then, since $F^{0}\left(a_{k_2}^{\left(2\right)}\right) = 
+         \emptyset$, we have that 
+         contracting $a_{k_2}^{\left(2\right)}$
+         in $h_2$, does not change the underlying 
+         graph. Which is not possible by
+         the definition of $F$.
+         Therefore $a^{\left(2,1\right)} =
+         a_{k_2}^{\left(2\right)}$. By a
+         symmetric reasoning, we can show
+         $b^{\left(1, 2\right)} = a_2^{\left(1\right)}$.
+         
+         Consider the case of
+         $F^{+}\left(a^{\left(2, 1\right)}\right) = \emptyset$.
+         Since $b^{\left(1, 2\right)} =
+         a_{2}^{\left(2\right)}$, $h_1$ only
+         overlaps with $h_2$.
+         By the minimality of $F$, 
+         we get a good coloring 
+         $f'$ of $F \setminus \left\{h_1\right\}$.
+         We can extend $f'$ into 
+         a good coloring of $F$,
+         by coloring $h_1$ with 
+         a color different from
+         $f'\left(h_2\right)$.
+
+         Consider the case of
+         $F^{-}\left(b^{\left(1, 2\right)}\right) = \emptyset$.
+         Since $a^{\left(2, 1\right)} = 
+         a_{k_2}^{\left(2\right)}$,
+         $h_2$ only intersecs with $h_1$.
+         Now, take the outermost polygons
+         overlapping with $h_1$ and
+         call them $h_{i_1}, \ldots, h_{i_{l}}$ with
+         \begin{gather*}
+             a_1^{\left(i_1\right)} <
+             a_{k_{i_1}}^{i_1} <
+             a_1^{\left(i_2\right)} < 
+             \ldots <
+             a_{k_{i_{l - 1}}}^{\left(i_{l - 1}\right)} <
+             a_1^{\left(i_{l}\right)} <
+             a_{k_{i_{l}}}^{i_{l}}.
+         \end{gather*}
+         We can thus partition all the
+         polygons overlapping with
+         $h_1$ by looking at which $h_{i_{j}}$ 
+         the are nested in. Denote
+         such class by $N_{h_{i_{j}}}$.
+         Notice that we have a good coloring
+         $f'$ of $F \setminus \left\{h_2\right\}$.
+         We can extend $f'$ into a colring
+         $f$ of $F$ by coloring $h_2$ with
+         the same color as the other polygons in
+         $F^{0}\left(a_2^{\left(1\right)}\right)$.
+
+         For the sake of simplicity,
+         suppose that we have
+         $f\left(h_1\right) = 1$,
+         $f\left(h_{i_1}\right) = 2$ and
+         $f\left(h_2\right) = 2$.
+         Notice that all the polygons
+         in a class $N\left(h_{i_{j}}\right)$ 
+         have the same color.
+
+         In order to obtain a good coloring
+         of $F$, it suffices to color all the polygons
+         overlapping with $h_1$ with color 2.
+         If one exists, take the smallest index
+         $i_{k}$ ($\neq i_1$) such that 
+         the color of $N\left(h_{i_{k}}\right)$ 
+         is different from 2. So $f\left(h_{i_{k}}\right) = 3$.
+         Define $O \defeq F^{+}\left(a_{k_{i_{k-1}}}^{i_{k-1}}\right)$.
+         Notice that the polygons 
+         in $F \setminus O$, that overlap
+         with polygons in $O$ lie in
+         $O' \defeq F^{0}\left(a_{k_{i_{k-1}}}^{i_{k-1}}\right) =
+         \widetilde{F}^{0}\left(a_{k_{i_{k-1}}}^{\left(i_{k-1}\right)}\right)$
+         by the maximality of $h_{i_{k-1}}$.
+         All polygons in $O'$ are colored
+         with color 1.
+         We can thus swap the colors
+         2 and 3 of the polygons 
+         contained in $O$, so that
+         the classes $N\left(h_{i_1}\right),
+         \ldots, N\left(h_{i_{k}}\right)$ are
+         colored with color 2.
+         We can repeat this procedure until
+         all classes $N\left(h_{i_{j}}\right)$ 
+         are colored with color 2.
+
+         We now tackle the case of $t = 3$.
+         If $t = 3$, we have $h_3 \in F^{+}
+         \left(a^{\left(2, 1\right)}\right)$ 
+         and $h_1 \in F^{-}\left(b^{\left(2, 3\right)}\right)$.
+         Thus, we have that $F^{+}\left(b^{\left(2, 1\right)}\right)
+         \neq \emptyset$.
+         By similar arguments as those
+         used in the previous case,
+         the minimality of $F$ implies
+         $a^{\left(2, 1\right)} = a_1^{\left(2\right)}$,
+         $b^{\left(2, 1\right)} = a_2^{\left(1\right)}$,
+         $a^{\left(3, 2\right)} = a_{k_3 - 1}^{\left(3\right)}$ and
+         $b^{\left(2, 3\right)} = a_{k_2}^{\left(2\right)}$.
+
+         Also, suppose that there exists
+         $a_2^{\left(1\right)} < a_{j}^{\left(2\right)} <
+         a_{k_1}^{\left(1\right)}$ for
+         some $j > 1$. Then,
+         since $F^{-}\left(b^{\left(2, 1\right)}\right) = \emptyset$, 
+         contracting $a_1^{\left(2\right)}$ 
+         in $h_2$ does not change the
+         underlying graph, which
+         contradicts the definition of $F$.
+         Similarly, there is no
+         $j < k_2$ $a_1^{\left(3\right)} <
+         a_{j}^{\left(2\right)} <
+         a_{k_3-1}^{\left(3\right)}$.
+         Therefore, for all
+         $1 < j < k_2$, we have
+         that $a_{k_1}^{\left(1\right)} < 
+         a_{j}^{\left(2\right)} < 
+         a_1^{\left(3\right)}$.
+
+         Suppose that there exists
+         $1 < j < k$ such that
+         $a_{k_1}^{\left(1\right)} <
+         a_{j}^{\left(2\right)} <
+         a_{j}^{\left(3\right)}$.
+         Contract $a_{k_2}^{\left(2\right)}$ 
+         in $h_2$ (call the resulting
+         polygon $h_2'$)
+         and get a good coloring
+         $f'$ of the resulting family
+         of polygons.
+         Suppose without loss of
+         generality that $f\left(h_1\right) = 1$,
+         $f'\left(h_2'\right) = 2$.
+         If $f'\left(h_3\right) \neq 2$, 
+         then we can decontract $h_2'$ 
+         to get a good coloring of $F$, 
+         which is a contradiction.
+         Let us consider the case
+         $f'\left(h_3\right) = 2$.
+         Define $O' \defeq F^{+}\left(a_{k_2 - 1}^{\left(2\right)}\right)$.
+         Notice that all the polygons in
+         $F \setminus O'$ that intersect with
+         $O'$ lie in the set 
+         $F^{0}\left(a_{k_2-1}^{\left(2\right)}\right) =
+         \widetilde{F}^{0}\left(a_{k_2-1}^{\left(2\right)}\right)$
+         by the maximality of $h_2$.
+         By the fact that $f'$ is a
+         good coloring, all polygons in $F^{0}\left(
+         a_{k_2-1}^{\left(2\right)}\right)$
+         share the same color $\gamma \in \left\{1, 3\right\}$.
+         Let $\delta \in \left\{1, 3\right\} 
+         \setminus \left\{\gamma\right\}$
+         We can swap the colors 2 and $\delta$
+         in $O'$ by preserving the good coloring.
+         We can finally decontract $h_2$ to get
+         a good coloring of $F$. 
+         A contradiction.
+
+         Thus, we deduce that $h_2$ is a segment.
+         We get a good coloring $f'$ of
+         $F \setminus \left\{h_2\right\}$.
+         Suppose without loss of generality
+         that $f'\left(h_1\right) = 1$.
+         We define $h_{i_1}, \ldots, h_{i_{l}}$ 
+         analogously as in the previous case.
+         By the same argument as in the previous case,
+         we can color all the sets 
+         $N\left(h_{i_{j}}\right)$ with the
+         same color as $N\left(h_{i_1}\right)$,
+         say 2 without loss of generality.
+         If after this recoloring,
+         $f'\left(h_3\right) \neq 2$, 
+         we can extend $f'$ into a
+         good coloring of $F$ by 
+         coloring $h_2$ with color 2.
+         This gives a contradiction.
+         We thus have $f'\left(h_3\right) = 2$.
+         Let $\gamma \in \left\{1, 3\right\}$
+         be the color of the polygons
+         in $F^{0}\left(a_{k_{i_{l}}}^{\left(i_{l}\right)}\right)
+         = \widetilde{F}^{0}\left(
+         a_{k_{i_{l}}}^{\left(i_{l}\right)}\right)$.
+         Let $O'' \defeq F^{+}\left(
+         a_{k_{i_{l}}}^{\left(i_{l}\right)}\right)$.
+         Notice that all the elements
+         in $F \setminus O''$ 
+         that intersect elements in $O''$
+         are contained in $F^{0}\left(
+         a_{k_{i_{l}}}^{\left(i_{l}\right)}\right)$.
+         Let $\delta \in \left\{1, 3\right\}
+         \setminus \left\{\gamma\right\}$.
+         Therefore, we can swap colors
+         2 and $\delta$ in $O''$
+         by preserving the good coloring property.
+         We can thus extend $f'$ into a
+         good coloring of $F$ by
+         coloring $h_2$ with color 2
+         to obtain a good coloring of $F$.
+         Again, a contradiction.
+     \end{proof}
 \end{document}
     
 
