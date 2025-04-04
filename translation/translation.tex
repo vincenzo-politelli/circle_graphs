@@ -13,7 +13,7 @@
 
 % annotations
 \setlength{\marginparwidth}{2cm}
-\usepackage{todonotes}
+\usepackage{soul}
 \usepackage{pdfcomment}
 
 % figures
@@ -249,7 +249,7 @@
         $f$ is a 3-coloring of $F$,
         which contradicts our choice of $F$.
         Thus, we have that
-        $F^{-}\left(b_{i}\right) = \emptyset$ and
+        $F^{-}\left(b_{i}\right) = \emptyset$ or
         $F^{+}\left(a_{i+1}\right) = \emptyset$
         for all $i \in \left\{1, \ldots, t-1\right\}$.
 
@@ -808,7 +808,8 @@
          that for all $1 \leq i \leq n$
          and $1 < j \leq k_{i}$,
          all polygons in
-         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$.
+         $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$
+         have the same color.
          We call such coloring a
          `good coloring'.
      \end{lemma}
@@ -894,11 +895,15 @@
          f_2\left(h_{i_0+1}\right) =2$.
          This also allows us to define 
          the function $f \vcentcolon 
-         F \rightarrow \left\{1, 2, 3\right\}$ 
-         with $f\left(h\right) = f_1\left(h\right)$ 
-         if $h \in F_1$ and 
-         $f\left(h\right) = f_2\left(h\right)$ 
-         if $h \in F_2$.
+         F \longrightarrow \left\{1, 2, 3\right\}$ 
+         as follows:
+         \begin{equation*}
+            f\left(h\right) = 
+            \begin{cases}
+                f_1\left(h\right) &\text{ if } h \in F_1, \\
+                f_2\left(h\right) &\text{ if } h \in F_{2}.
+            \end{cases}
+        \end{equation*} 
          By the maximality
          of $h_{i_0}$ and $h_{i_0+1}$,
          a family
@@ -918,7 +923,9 @@
          Suppose that $h_{i} \in F_1$ and
          $h_{i'} \in F_2$, then, since for no
          $\left(a, b\right) \in P^{0}\left(F\right)$ 
-         and $h_{i} \in F$, we deduce that
+         and $h_{i} \in F$ we have
+         $a < a_{1}^{\left(i\right)} <
+         a_{k_{i}}^{\left(i\right)} < b$, we deduce that
          \begin{gather*}
              a_1^{\left(i\right)} < 
              a^{\left(i_0+1, i_0\right)} <
