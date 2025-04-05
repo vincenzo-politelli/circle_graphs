@@ -1,5 +1,4 @@
 \documentclass[12pt]{article}
-
 % format
 % \usepackage[a4paper, total={6in, 9in}]{geometry}                         
 
@@ -56,6 +55,54 @@
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\ind}{i}
 \DeclareMathOperator{\sgn}{sign}
+
+% figures
+\usepackage{tikz}
+\usepackage{caption}
+
+% colors
+\definecolor{azure}{RGB}{41, 50, 65}
+\definecolor{orange}{RGB}{238, 108, 77}
+\definecolor{lightblue}{RGB}{224, 251, 252}
+\definecolor{blue}{RGB}{152, 193, 217}
+\definecolor{darkblue}{RGB}{61, 90, 128}
+\definecolor{green}{RGB}{67, 170, 139}
+\definecolor{purple}{RGB}{199, 125, 255}
+
+% tikz setup
+\def\rxhalf{0.5/2}
+\def\ryhalf{0.4/2}
+
+\def\rxone{1.0/2}
+\def\ryone{0.7/2}
+
+\def\rxonepoint{1.5/2}
+\def\ryonepoint{0.9/2}
+
+\def\rxtwo{2.0/2}
+\def\rytwo{1.3/2}
+
+\def\rxstwopoint{(3 - 1.5/2)/2}
+\def\rxtwopoint{2.5/2}
+\def\rytwopoint{1.5/2}
+
+\def\rxthree{3/2}
+\def\rythree{1.7/2}
+
+\def\rxfour{4/2}
+\def\ryfour{2/2}
+
+\def\rxfourpoint{4.5/2}
+\def\ryfourpoint{2.3/2}
+
+\def\rxfive{5/2}
+\def\ryfive{3.0/2}
+
+\def\rxfivepoint{5.5/2}
+\def\ryfivepoint{3.0/2}
+
+\def\rxsix{6/2}
+\def\rysix{3.3/2}
 
 \begin{document}
 
@@ -730,6 +777,72 @@
      = I_{b^{\left(i,i'\right)}}\left(h_{i'}\right)$ 
      and let $a^{\left(i',i\right)}
      \defeq a_{j'}^{\left(i'\right)}$.
+     An illustration of 
+     this is shown in Figure \ref{figure:overlap}.
+
+     \begin{figure}[ht] 
+     \begin{center}
+     \resizebox{\textwidth}{!}{%
+     \begin{tikzpicture}[line width=0.7pt, line cap=round]
+
+         \node[font=\scriptsize] at (1, 1.5)
+         {$h_i$};
+         \node[font=\scriptsize] at (8, 1.2)
+         {$h_{i'}$};
+
+         \node[font=\scriptsize] at (3,-0.3) {$a^{\left(i',i\right)}$};
+         \node[font=\scriptsize] at (4,-0.3) {$b^{\left(i,i'\right)}$};
+
+         \path[fill=blue, opacity = 0.5]
+             (0, 0)
+             arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix] -- 
+             (6, 0)
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (5, 0)
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (4, 0)
+             arc[start angle=180, end angle=0, x radius=-\rxtwo, y radius=\rytwo] --
+             (2, 0)
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (1, 0)
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             cycle;
+
+         \path[fill=orange, opacity=0.5]
+             (3, 0) 
+             arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint] --
+             (8.5, 0) 
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (7.5, 0) 
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (6.5, 0) 
+             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             (5.5, 0) 
+             arc[start angle=180, end angle=0, x radius=-\rxtwopoint, y radius=\rytwopoint] --
+             cycle;
+
+         \draw[darkblue] (-1,0) -- (9.5, 0);
+
+         \draw[blue] (0, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[blue] (1, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[blue] (2, 0) arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo];
+         \draw[blue] (4, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[blue] (5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[blue] (0, 0) arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix];
+
+         \draw[orange] (3, 0) arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint];
+         \draw[orange] (5.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[orange] (6.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[orange] (7.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[orange] (3, 0) arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint];
+
+     \end{tikzpicture}
+     }
+     \end{center}
+     \caption{}
+     \label{figure:overlap}
+     \end{figure} 
+
      We say that the interval
      $\left(a^{\left(i', i\right)},
      b^{\left(i, i'\right)}\right)$ 
@@ -976,6 +1089,68 @@
              a_{k_2}^{\left(2\right)}$. By a
              symmetric reasoning, we can show
              $b^{\left(1, 2\right)} = a_2^{\left(1\right)}$.
+             We have the setting shown in Figure \ref{figure:t=2}.
+
+             \begin{figure}[ht]
+             \begin{center}
+             \resizebox{\textwidth}{!}{%
+             \begin{tikzpicture}[line width=0.7pt, line cap=round]
+
+                 \node[font=\scriptsize] at (0.5, 1.2) {$h_1$};
+                 \node[font=\scriptsize] at (6.5, 1.2) {$h_2$};
+ 
+                 \node[font=\scriptsize] at (2.5, -0.3) {$a^{\left(2, 1\right)}$};
+                 \node[font=\scriptsize] at (4, -0.3) {$b^{\left(1, 2\right)}$};
+ 
+                 \path[fill=blue, opacity=0.5] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint] --
+                 (5.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (4.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfour, y radius=\ryfour];
+
+                 \path[fill=orange, opacity=0.5]
+                 (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint] --
+                 (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfourpoint, y radius=\ryfourpoint] --
+                 (2.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+
+                 \draw[azure] (-1,0) -- (8, 0);
+ 
+                 \draw[blue] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint];
+                 \draw[blue] (5.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[blue] (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[blue] (4.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[blue] (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfour, y radius=\ryfour];
+
+                 \draw[orange] (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint];
+                 \draw[orange] (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfourpoint, y radius=\ryfourpoint];
+                 \draw[orange] (2.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[orange] (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+
+             \end{tikzpicture}
+             }
+             \end{center}
+             \caption{}
+             \label{figure:t=2}
+             \end{figure}
              
              Consider the case of
              $F^{+}\left(a^{\left(2, 1\right)}\right) = \emptyset$.
@@ -1013,6 +1188,108 @@
                  c_1^{\left(s\right)} <
                  c_{l_{s}}^{\left(s\right)}.
              \end{gather*}
+
+             This setting is illustrated in
+             Figure \ref{figure:multi}.
+             
+             \begin{figure}[ht]
+             \begin{center}
+             \resizebox{\textwidth}{!}{%
+             \begin{tikzpicture}[line width=0.7pt, line cap=round]
+ 
+                 \path[fill=blue, opacity=0.5] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix] --
+                 (6, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+                 (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+                 (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+                 (3, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxthree, y radius=\rythree];
+ 
+                 \path[fill=orange, opacity=0.5] (2.4, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo] --
+                 (4.4, 0)
+                 arc[start angle=180, end angle=0, x radius=-0.8/2, y radius=0.6/2] --
+                 (3.6, 0)
+                 arc[start angle=180, end angle=0, x radius=-1.2/2, y radius=0.8/2];
+ 
+                 \path[fill=orange, opacity=0.5] (1, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix] --
+                 (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfive, y radius=2.6/2] --
+                 (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+ 
+                 \draw[azure] (-1, 0) -- (8, 0);
+ 
+                 \draw[blue] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix];
+                 \draw[blue] (6, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone];
+                 \draw[blue] (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone];
+                 \draw[blue] (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone];
+                 \draw[blue] (3, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxthree, y radius=\rythree];
+ 
+                 \draw[orange] (2.4, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo];
+                 \draw[orange] (4.4, 0)
+                 arc[start angle=180, end angle=0, x radius=-0.8/2, y radius=0.6/2];
+                 \draw[orange] (3.6, 0)
+                 arc[start angle=180, end angle=0, x radius=-1.2/2, y radius=0.8/2];
+ 
+                 \draw[orange] (2.6, 0)
+                 arc[start angle=180, end angle=0, x radius=0.8/2, y radius=0.8/3];
+ 
+                 \draw[orange] (2.8, 0)
+                 arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.4/3];
+ 
+                 \draw[orange] (3.8, 0)
+                 arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.3/2];
+                    
+                 \draw[blue] (4.3, 0)
+                 arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.3/2];
+
+                 \draw[green] (4.6, 0)
+                 arc[start angle=180, end angle=0, x radius=0.8/2, y radius=0.6/2];
+ 
+                 \draw[green] (4.8, 0)
+                 arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.3/2];
+                
+                 \draw[blue] (5.3, 0)
+                 arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.3/2];
+
+                 \draw[purple] (5.6, 0)
+                 arc[start angle=180, end angle=0, x radius=0.8/2, y radius=0.6/2];
+ 
+                 \draw[orange] (1, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix];
+                 \draw[orange] (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxfive, y radius=2.6/2];
+                 \draw[orange] (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[orange] (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+ 
+                 \node[font=\scriptsize] at (0.5, 1.2) {$h_1$};
+                 \node[font=\scriptsize] at (6.5, 1.2) {$h_2$};
+                 \node[font=\scriptsize] at (3.7, 0.8) {$u_1$};
+                 \node[font=\scriptsize] at (5, 0.5) {$u_2$};
+                 \node[font=\scriptsize] at (6.3, 0.4) {$u_3$};
+                 
+             \end{tikzpicture}
+             }
+             \end{center}
+             \caption{}
+             \label{figure:multi}
+             \end{figure} 
+
              We can thus partition all the
              polygons overlapping with
              $h_1$ by looking at which $u_{j}$ 
@@ -1103,6 +1380,91 @@
              $a_{k_1}^{\left(1\right)} <
              a_{j}^{\left(2\right)} <
              a_1^{\left(3\right)}$.
+             The setting is illustrated
+             in Figure \ref{figure:t=3}.
+             
+             \begin{figure}[ht]
+             \begin{center}
+             \resizebox{\textwidth}{!}{%
+             \begin{tikzpicture}[line width=0.7pt, line cap=round]
+ 
+                 \node[font=\scriptsize] at (2.5, -0.3) {$a^{\left(1\right)}_{k_1}$};
+                 \node[font=\scriptsize] at
+                 (3.5, -0.3) {$a^{\left(2\right)}_j$};
+                 \node[font=\scriptsize] at
+                 (4.5, -0.3) {$a^{\left(3\right)}_1$};
+ 
+                 \node[font=\scriptsize] at (0.2, 0.7) {$h_1$};
+                 \node[font=\scriptsize] at (3.5, 1.7) {$h_2$};
+                 \node[font=\scriptsize] at (6.8, 0.7) {$h_3$};
+ 
+                 \path[fill=blue, opacity=0.5] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint]
+                 -- (2.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf]
+                 -- (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf]
+                 -- (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxonepoint, y radius=\ryonepoint];
+ 
+                 \path[fill=green, opacity=0.5] (1.5/2, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint] --
+                 (5.5 + 1.5/2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxstwopoint, y radius=\rytwopoint] --
+                 (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (3.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (3, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxstwopoint, y radius=\rytwopoint];
+ 
+                 \path[fill=orange, opacity=0.5] (4.5, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint] --
+                 (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxonepoint, y radius=\ryonepoint] --
+                 (5.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf] --
+                 (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+ 
+                 \draw[azure] (-1, 0) -- (8, 0);
+ 
+                 \draw[blue] (0, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint];
+                 \draw[blue] (2.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[blue] (2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[blue] (1.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxonepoint, y radius=\ryonepoint];
+ 
+                 \draw[green] (1.5/2, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint];
+                 \draw[green] (5.5 + 1.5/2, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxstwopoint, y radius=\rytwopoint];
+                 \draw[green] (4, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[green] (3.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[green] (3, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxstwopoint, y radius=\rytwopoint];
+ 
+                 \draw[orange] (4.5, 0)
+                 arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint];
+                 \draw[orange] (7, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxonepoint, y radius=\ryonepoint];
+                 \draw[orange] (5.5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 \draw[orange] (5, 0)
+                 arc[start angle=180, end angle=0, x radius=-\rxhalf, y radius=\ryhalf];
+                 
+             \end{tikzpicture}
+             }
+             \end{center}
+             \caption{}
+             \label{figure:t=3}
+             \end{figure}
+
              Contract $a_{k_2}^{\left(2\right)}$ 
              in $h_2$ (call the resulting
              polygon $h_2'$)
