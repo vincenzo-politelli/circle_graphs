@@ -32,3 +32,6 @@
 # Ignore macOS system files
 .DS_Store
 
+# Ignore other files in the directory
+cover_letter*
+svg*
