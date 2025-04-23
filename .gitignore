@@ -1,0 +1,40 @@
+# Ignore auxiliary LaTeX files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.brf
+*.fls
+*.fdb_latexmk
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.run.xml
+*.upa
+*.upb
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.backup
+*.synctex
+
+# Ignore editor backup files (like from VSCode or Emacs)
+*~
+*.swp
+*.swo
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore other files in the directory
+cover_letter*
+*Circle\ graphs\ are\ quadratically\ X-bounded.pdf
+*k-chord.pdf
+*prev_translation*
+
