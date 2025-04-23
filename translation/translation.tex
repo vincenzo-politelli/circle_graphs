@@ -37,6 +37,7 @@
 
 % bibliography
 \usepackage[backend=biber,style=alphabetic, sorting=ynt]{biblatex}
+\bibliography{ref}
 
 % url highlight
 \usepackage{hyperref}
@@ -106,7 +107,7 @@
 
 \begin{document}
 
-    \section{Coloring circle graphs}
+    \section{Coloring triangle-free circle graphs}
     
     \textbf{WARNING}: intervals
     $h_1$, $h_2$ overlap if
@@ -444,11 +445,10 @@
         $F \setminus F_1$ is contained
         in some (maximal) intersection
         $p \in P^{0}\left(F_1\right)$.
-        Consider that the following
-        construction has been done
-        for $k - 1$ with $k \geq 2$.
-        We want the following properties
-        to be true.
+        Suppose that the subfamilies
+        $F_1, \ldots, F_{k-1}$ have
+        been constructed for
+        $k \geq 2$.
         \begin{enumerate}
             \item The intervals in
                 $F' \defeq 
@@ -631,7 +631,9 @@
         number of iterations.
     \end{proof}
     
-    \section{Coloring polygon circle graphs}
+    \section{Coloring triangle-free polygon circle graphs}
+    
+    \subsection{Preliminaries}
 
     We define polygon circle
     graphs as the set of intersection
@@ -777,6 +779,18 @@
      = I_{b^{\left(i,i'\right)}}\left(h_{i'}\right)$ 
      and let $a^{\left(i',i\right)}
      \defeq a_{j'}^{\left(i'\right)}$.
+     Similarly, let
+     $\left(a^{\left(i'\right)}_{l'},
+     a^{\left(i'\right)}_{l'+1}\right)
+     = I_{h_{i'}}\left(a^{\left(i\right)}_{k_{i}}\right)$ 
+     and let $c^{\left(i',i\right)}
+     \defeq a^{\left(i'\right)}_{l'}$.
+     Let $\left(a^{\left(i\right)}
+     _{l}, a^{\left(i\right)}_{l+1}\right)
+     = I_{h_{i'}}\left(c^{\left(i, i'\right)}\right)$
+     and let 
+     $d^{\left(i, i'\right)} \defeq
+     a^{\left(i\right)}_{j+1}$.
      An illustration of 
      this is shown in Figure \ref{figure:overlap}.
 
@@ -792,14 +806,14 @@
 
          \node[font=\scriptsize] at (3,-0.3) {$a^{\left(i',i\right)}$};
          \node[font=\scriptsize] at (4,-0.3) {$b^{\left(i,i'\right)}$};
+         \node[font=\scriptsize] at (5,-0.3) {$c^{\left(i',i\right)}$};
+         \node[font=\scriptsize] at (6,-0.3) {$d^{\left(i,i'\right)}$}; 
 
          \path[fill=blue, opacity = 0.5]
              (0, 0)
              arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix] -- 
              (6, 0)
-             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
-             (5, 0)
-             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
+             arc[start angle=180, end angle=0, x radius=-\rxtwo, y radius=\rytwo] --
              (4, 0)
              arc[start angle=180, end angle=0, x radius=-\rxtwo, y radius=\rytwo] --
              (2, 0)
@@ -816,9 +830,9 @@
              (7.5, 0) 
              arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
              (6.5, 0) 
-             arc[start angle=180, end angle=0, x radius=-\rxone, y radius=\ryone] --
-             (5.5, 0) 
-             arc[start angle=180, end angle=0, x radius=-\rxtwopoint, y radius=\rytwopoint] --
+             arc[start angle=180, end angle=0, x radius=-\rxonepoint, y radius=\ryonepoint] --
+             (5, 0) 
+             arc[start angle=180, end angle=0, x radius=-\rxtwo, y radius=\rytwo] --
              cycle;
 
          \draw[darkblue] (-1,0) -- (9.5, 0);
@@ -826,12 +840,11 @@
          \draw[blue] (0, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
          \draw[blue] (1, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
          \draw[blue] (2, 0) arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo];
-         \draw[blue] (4, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
-         \draw[blue] (5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[blue] (4, 0) arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo];
          \draw[blue] (0, 0) arc[start angle=180, end angle=0, x radius=\rxsix, y radius=\rysix];
 
-         \draw[orange] (3, 0) arc[start angle=180, end angle=0, x radius=\rxtwopoint, y radius=\rytwopoint];
-         \draw[orange] (5.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
+         \draw[orange] (3, 0) arc[start angle=180, end angle=0, x radius=\rxtwo, y radius=\rytwo];
+         \draw[orange] (5, 0) arc[start angle=180, end angle=0, x radius=\rxonepoint, y radius=\ryonepoint];
          \draw[orange] (6.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
          \draw[orange] (7.5, 0) arc[start angle=180, end angle=0, x radius=\rxone, y radius=\ryone];
          \draw[orange] (3, 0) arc[start angle=180, end angle=0, x radius=\rxfivepoint, y radius=\ryfivepoint];
@@ -843,14 +856,60 @@
      \label{figure:overlap}
      \end{figure} 
 
-     We say that the interval
+     \begin{rmk} \label{rmk:disj}
+      By definition,
+     $a^{\left(i', i\right)} < b^{\left(i, i'\right)}$,
+     $c^{\left(i', i\right)} < d^{\left(i,i'\right)}$ 
+     and $a^{\left(i', i\right)} 
+     \leq c^{\left(i', i\right)}$,
+     $b^{\left(i, i'\right)}
+     \leq d^{\left(i, i'\right)}$.
+     We thus either have, 
+     $a^{\left(i', i\right)} < 
+     b^{\left(i, i'\right)} <
+     c^{\left(i', i\right)} < 
+     d^{\left(i, i'\right)}$,
+     in which case
+     the intervals
      $\left(a^{\left(i', i\right)},
-     b^{\left(i, i'\right)}\right)$ 
-     is the overlap of $h_{i}$, $h_{i'}$.
+     b^{\left(i,i'\right)}\right)$ 
+     and
+     $\left(c^{\left(i', i\right)},
+     d^{\left(i,i'\right)}\right)$
+     are disjoint.
+     Or we have
+     $a^{\left(i',i\right)} 
+     \leq c^{\left(i', i\right)}
+     < b^{\left(i, i'\right)}
+     \leq d^{\left(i, i'\right)}$.
+     In this cae, 
+     since $c^{\left(i', i\right)}$ 
+     is a vertex of
+     $h_{i'}$ and
+     $c^{\left(i', i\right)}
+     < b^{\left(i, i'\right)}$, 
+     we have that
+     $a^{\left(i', i\right)}
+     \geq c^{\left(i',i\right)}$ 
+     and thus 
+     $a^{\left(i', i\right)}
+     = c^{\left(i',i\right)}$.
+     By a similar
+     reasoning, we get
+     that $b^{\left(i,i'\right)}
+     = d^{\left(i, i'\right)}$
+     and so that
+     $\left(a^{\left(i',i\right)},
+     b^{\left(i, i'\right)}\right) =
+     c^{\left(i',i\right)},
+     d^{\left(i, i'\right)}$.
+     \end{rmk}   
 
-     Consider the set of intervals
+     Now, consider the set of intervals
      of the form $\left(a^{\left(i',i\right)},
      b^{\left(i,i'\right)}\right)$ 
+     or $\left(c^{\left(i', i\right)},
+     d^{\left(i, i'\right)}\right)$
      and denote it $P\left(F\right)$.
      Take the inclusion-wise maximal
      subfamily of such intervals
@@ -861,7 +920,9 @@
          Notice that, if 
          $\omega\left(F\right) = 2$,
          the maximality of
-         $P^{0}\left(F\right)$ 
+         $P^{0}\left(F\right)$,
+         together with 
+         Remark \ref{rmk:disj}
          implies that all the
          intervals in $P^{0}\left(F\right)$
          are disjoint.
@@ -903,18 +964,49 @@
          do not overlap.    
      \end{fact}
 
-     We now prove the following
-     technical lemma.
+     \subsection{Coloring plain polygon circle graphs}
+
+     We define a particular
+     kind of circle graphs
+     whose properies
+     will be useful for the
+     proof of the general case.
+
+     \begin{defn} \label{def:plain}
+         We call a polygon
+         circle graph plain,
+         if it has a generating
+         family of polygones,
+         $F \defeq \left\{h_{i}\right\}_{i = 1}^{n}$ 
+         with $\omega\left(F\right) = 2$
+         and such that, 
+         for any 
+         $\left(a, b\right) \in 
+         P^{0}\left(F\right)$,
+         there is no $h_{i}$ 
+         such that
+         $a < a_1^{\left(i\right)} < 
+         a_{k_{i}}^{\left(i\right)} <
+         b$.
+     \end{defn}
+
+     Plain polygon
+     circle graphs have the
+     following property. 
+     We note that we will
+     be repeatedly using
+     Fact \ref{fact:single}
+     and Fact \ref{fact:double}
+     without reference.
 
      \begin{lemma} \label{lemma:poly}
-         Let $F \defeq \left\{h_{i}\right\}_{i =1}^{n}$ 
-         be a family of polygons with
-         $\omega\left(F\right) = 2$.
-         Suppose that for any
-         $\left(a, b\right) \in P^{0}\left(F\right)$,
-         there is no $h_{i}$ such
-         that $a < a_1^{\left(i\right)}
-         < a_{k_{i}}^{\left(i\right)} < b$.
+         Let $G$ be a plain polygon
+         circle graph and
+         let $F \defeq \left\{h_{i}\right\}_{i =1}^{n}$ 
+         be a polygon model of $G$ with
+         the properties
+         described in Definition
+         \ref{def:plain}
          Then $\chi\left(F\right) \leq 3$.
          Moreover, there exists
          a 3-coloring of $F$ such
@@ -1170,7 +1262,7 @@
              $F^{-}\left(b^{\left(1, 2\right)}\right) = \emptyset$.
              Since $a^{\left(2, 1\right)} = 
              a_{k_2}^{\left(2\right)}$,
-             $h_2$ only intersects with $h_1$.
+             $h_2$ only overlaps with $h_1$.
              Now, take the outermost polygons
              overlapping with $h_1$:
              \begin{gather*}
@@ -1265,7 +1357,7 @@
                  \draw[blue] (5.3, 0)
                  arc[start angle=180, end angle=0, x radius=0.4/2, y radius=0.3/2];
 
-                 \draw[purple] (5.6, 0)
+                 \draw[orange] (5.6, 0)
                  arc[start angle=180, end angle=0, x radius=0.8/2, y radius=0.6/2];
  
                  \draw[orange] (1, 0)
@@ -1482,7 +1574,7 @@
              $f'\left(h_3\right) = 2$.
              Define $O' \defeq F^{+}\left(a_{k_2 - 1}^{\left(2\right)}\right)$.
              Notice that all the polygons in
-             $F \setminus O'$ that intersect with
+             $F \setminus O'$ that overlap with
              $O'$ lie in the set 
              $F^{0}\left(a_{k_2-1}^{\left(2\right)}\right) =
              \widetilde{F}^{0}\left(a_{k_2-1}^{\left(2\right)}\right)$
@@ -1529,7 +1621,7 @@
              c_{l_{s}}^{\left(s\right)}\right)$.
              Notice that all the elements
              in $F \setminus O''$ 
-             that intersect elements in $O''$
+             that overlap elements in $O''$
              are contained in $\widetilde{F}^{0}\left(
              c_{l_{s}}^{\left(s\right)}\right)$,
              and so have color $\gamma$.
@@ -1546,6 +1638,8 @@
          \end{itemize} 
      We have the desired result. 
      \end{proof}
+
+     \subsection{Proof of the general case}
 
      We first establish some more notation.
      Namely, using the same notational conventions
@@ -1566,36 +1660,18 @@
      Lemma \ref{lemma:poly} remains 
      true if we
      replace $\widetilde{F}^{0}\left(a_{j}^{\left(i\right)}\right)$ 
-     with $\overline{F}^{0}\left(a_{j'}^{\left(i'\right)}\right)$.
-     This is because, analogous
-     versions of Fact  \ref{fact:single}
-     and Fact \ref{fact:double} hold;
-     in the proof of
-     Lemma \ref{lemma:poly},
-     the case of $t = 1$
-     and the proof of $t \leq 3$ are exactly
-     the same. Also, when 
-     dealing with the cases $t = 2$ 
-     and $t = 3$, we use the minimality
-     of $F$ to specify some structural
-     properties of $F$
-     illustrated in Figure 
-     \ref{figure:t=2} and Figure \ref{figure:t=3}. 
-     After doing so,
-     the proof of this alternative version of
-     Lemma \ref{lemma:poly} is given by 
-     the same argument as in the proof
-     of such lemma, only by composing
-     the stereographic projection
-     generating our representation
-     of polygon circle graphs with
-     a symmetry of $\mathbb{R}$ with
-     respect to the point 0.
-
+     with $\overline{F}^{0}\left(a_{j'}^{\left(i'\right)}\right)$,
+     since this would be a mirrored version
+     of such lemma.
+      
      We now present our main result
      with similar techniques as the one
-     employed in the proof of
-     Theorem \ref{thm:circle}.
+     employed in \cite{rus}.
+     Again, in what follows, 
+     we will repeatedly use
+     Fact \ref{fact:single}
+     and Fact \ref{fact:double}
+     without reference.
 
      \begin{thm}
          Let $F$ be a family of
@@ -1649,15 +1725,14 @@
              for some
              $\left(a, b\right) \in P^{0}\left(F_{k-1}\right)$.
              \item For each
-             $p \in \left(a^{\left(i', i\right)},
-             b^{\left(i, i'\right)}\right)
+             $p \in \left(a, b\right)
              \in P^{0}\left(F_{k-1}\right)$ 
              either only one color is 
              used to color all polygons in
-             $\overline{F}_{k-1}^{0}\left(a^{\left(i', i\right)}\right)$ 
+             $\overline{F}_{k-1}^{0}\left(a\right)$ 
              and no more than two colors are used
              to color intervals in
-             $\widetilde{F}_{k-1}^{0}\left(b^{\left(i,i'\right)}\right)$,
+             $\widetilde{F}_{k-1}^{0}\left(b\right)$,
              or viceversa.
          \end{enumerate}
          Let us show how to carry out
@@ -1707,19 +1782,25 @@
          $u_1, \ldots, u_{t}$.
          
          Let $I_{p}$ be the set of polygons
-         where vertices are all
+         whose vertices are all
          in $p$, the polygons
          $u_{t+1}, \ldots, u_{s}$ and 
          the segment $\left(b^{\left(i, i'\right)},
          c_{l_{s}}^{\left(s\right)} + 1\right)$.
          Let $F_{k, p}$ be the set of
-         polygons in $I_{p}$ whose 
-         vertices are not all in
-         the overlap of two polygons
-         in $I_{p}$.
-         By the same argument as the
-         one used in the proof of 
-         Theorem \ref{thm:circle},
+         polygons $h_{i} \in I_{p}$ 
+         such that, for no two polygons
+         $h_{i'}, h_{i''} \in I_{p}$
+         we have all the vertices
+         of $h_{i}$ contained in
+         $\left(a^{\left(i'', i'\right)},
+         b^{\left(i', i''\right)}\right)$ 
+         or in
+         $\left(c^{\left(i'',i'\right)}, 
+         d^{\left(i',i''\right)}\right)$.
+         By using the fact
+         that $\omega\left(F\right) = 2$,
+         it is easy to see that 
          polygons in $I_{p} \setminus F_{k, p}$ 
          do not overlap with 
          any of the polygons of
@@ -1774,6 +1855,8 @@
          Therefore, the desired coloring will be completed
          in a finite number of iterations.
      \end{proof}    
+     
+     \printbibliography
 \end{document}
     
 
