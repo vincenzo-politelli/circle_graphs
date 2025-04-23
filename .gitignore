@@ -34,5 +34,7 @@
 
 # Ignore other files in the directory
 cover_letter*
-*svg*
 "Circle graphs are quadratically X-bounded.pdf"
+"k-chord.pdf"
+*prev_translation*
+

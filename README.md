@@ -1,6 +1,5 @@
-The directory `translation` contains the `.tex` and the relative `.pdf` file consisting of the english traslation of Lemma 4.4, Lemma 4.5 and Theorem 4.3 of the paper "Upperbound on the chromatic number of graphs" by A. V. Kostochka contained in the file `circle_graphs.pdf`.
-In the following section we present a new result about coloring triangle-free polygone circle graphs.
+The directory `translation` contains the `.tex` and the relative `.pdf` file containing the english traslation of Lemma 4.4, Lemma 4.5 and Theorem 4.3 of the paper "Upperbound on the chromatic number of graphs" by A. V. Kostochka contained in the file `circle_graphs.pdf`.
+In the following section we present a new result about coloring triangle-free polygon-circle graphs.
 
-The file `coloring_tf_polygon_circle_graphs.pdf` contains a polished version of the proof of the fact that triangle-free polygon circle graphs are 5-colorable. We remark that such bound is tight since there exist polygon circle graphs (actually, circle graphs), which are not 4-colorable.
+The file `coloring_tf_polygon_circle_graphs.pdf` contains a polished version of the proof of the fact that triangle-free polygon-circle graphs are 5-colorable. We remark that such bound is tight since there exist polygon-circle graphs (actually, circle graphs), which are not 4-colorable.
 
-The directory `prev_translation` contains a partial translation of the beginninng of Section 4 of the same paper by A. V. Kostochka. 
