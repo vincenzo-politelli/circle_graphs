@@ -94,7 +94,7 @@
         For any graph $G$
         and cycle $C$ in $G$, 
         the number of chords in $C$ 
-        is given by $\left|e\left(G\left[V\left(C\right)\right]\right)\right|
+        is given by $e\left(G\left[V\left(C\right)\right]\right)
         - \left|C\right|$.
     \end{fact}
     
@@ -143,7 +143,7 @@
         < \ldots, n_{m}'$.
         This last condition is
         necessary to ensure that 
-        the vertices in $v\left(C_{n}\right)
+        the vertices in $V\left(C_{n}\right)
         \setminus \left\{
         v_{2n_1}, \ldots, 
         v_{2n_{m}},
@@ -197,7 +197,8 @@
         $C_{n}$ has the following
         cycle, obtained from $C_{n}$
         by removing $v_{2q}$ and
-        $v_{2\left(n-2\right)+1}$.
+        $v_{2\left(n-2\right)+1}$
+        as in Fact \ref{fact:new}.
         We have:
         \begin{gather*}
             C_{n}' \defeq
@@ -218,7 +219,9 @@
         Fact \ref{fact:edges} tells
         us that the number of 
         chords of $C_{n}'$ is
-        $K_{n} - \left(l-2\right) - 2 = K_{n} - l$.
+        \begin{gather*}
+            K_{n} - \left(l-2\right) - 2 = K_{n} - l.
+        \end{gather*}
         
         This concludes the proof.
     \end{proof}
@@ -232,7 +235,7 @@
     \begin{lemma} \label{lemma:remainder}
         For any $m \geq 6$, we have that $C_{m+1}$ contains
         an induced $\left(K_{m} - 1\right)$-chord
-        (and thus, so does $H_{m+1}$ ).
+        (and thus, so does $H_{m+1}$).
     \end{lemma}
     \begin{proof}
         Consider the $K_{m+1}$-chord $C_{m+1}$.
