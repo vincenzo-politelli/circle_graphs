@@ -270,6 +270,66 @@
     As pointed out above, Lemma
     \ref{lemma:most} and \ref{lemma:remainder}
     imply Proposition \ref{prop:hg}.
+
+    \section{Ramsey-type arguments}
+
+    The aim of this section is that of
+    proving the following lemma.
+
+    \begin{lemma}
+        For any fixed $k$, $d$,
+        there exists some $f\left(k, d\right)$ 
+        such that every graph $G$
+        consisting of three induced
+        paths $P_1$, $P_2$, $P_3$ 
+        and an independent set of at least
+        $f\left(k, d\right)$ vertices $A$ 
+        where each vertex in $A$ has
+        at least one neighbour in each $P_{i}$
+        and no vertex of $G$ has more
+        than $d$ neighbours in $A$,
+        we have that $G$ contains an
+        induced $k$-chord.
+    \end{lemma}
+
+    We start by proving the following
+    lemma.
+
+    \begin{lemma}
+        An outerplanar $k'$-chord contains
+        an induced $k$-chord for any $k' \leq k$.
+    \end{lemma}
+    \begin{proof}
+        We first prove that an outerplanar
+        $k'$-chord contains an induced
+        $\left(k'-1\right)$-chord.
+
+        Let $k' \geq 1$ and let $G$ 
+        be a $k'$-chord which is also 
+        outerplanar. Fix an outerplanar
+        embedding of $G$.
+        Let $\left(v_0, \ldots, v_{L-1}\right)$ 
+        be the vertices making the cycle
+        of the $k$-chord listed in clockwise
+        order. By the outerplanarity,
+        there exists a chord $\left\{v_{i}, v_{j}\right\}$ 
+        such that there is no other chord
+        of $G$ with one end among the
+        vertices $\left\{v_{i}, v_{i+1} \ldots, v_{j}\right\}$,
+        where indices are understood modulo $L$.
+        Then, the graph $G'$ induced in $G$ by
+        the vertices $\left\{v_1, \ldots, v_{i},
+        v_{j}, \ldots, v_{L-1}\right\}$,
+        where indices are understood modulo $L$,
+        is a $\left(k'-1\right)$-chord.
+        Clearly, $G'$ remains outerplanar.
+
+        We can reiterate this argument until 
+        we reach the desired $k$.
+    \end{proof}
+
+
+
 \end{document}
 
 
