@@ -3,7 +3,7 @@ In the following section we present a new result about coloring triangle-free po
 
 The file `coloring_tf_polygon_circle_graphs.pdf` contains a polished version of the proof of the fact that triangle-free polygon-circle graphs are 5-colorable. We remark that such bound is tight since there exist polygon-circle graphs (actually, circle graphs), which are not 4-colorable.
 
-The directory `k-chord` contains our work related to the paper "Chi-boundedness of graphs containing no cycles with k chords". In particular, it contains the proof of the fact that for every k not equal to 1 and 4, there eexists n such that the half graph on 2n vertices contains a k-chord.
+The directory `k-chord` contains our work related to the paper "Chi-boundedness of graphs containing no cycles with k chords". In particular, it contains the proof of the fact that for every k not equal to 1 and 4, there exists n such that the half graph on 2n vertices contains a k-chord.
 
 TODO:
 - applications of circle graphs;
