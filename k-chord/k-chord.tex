@@ -282,18 +282,18 @@
     proving the following lemma.
 
     \begin{lemma} \label{lemma:paths}
-        For any fixed $k$, $d$,
-        there exists some $f\left(k, d\right)$ 
-        such that every graph $G$
-        consisting of three induced
-        paths $P_1$, $P_2$, $P_3$ 
-        and an independent set of at least
-        $f\left(k, d\right)$ vertices $A$ 
-        where each vertex in $A$ has
-        at least one neighbour in each $P_{i}$
-        and no vertex of $G$ has more
-        than $d$ neighbours in $A$,
-        we have that $G$ contains an
+        Let $k \geq 1$ and $d \geq 1$ 
+        be some fixed constants.
+        Let $G$ be a graph consisting
+        of an independent set $A$ 
+        and three paths $P_1$, $P_2$, $P_3$
+        such that for any vertex $v$ 
+        in any path $P_{i}$,
+        $v$ has at most $d$ neighbours
+        in $A$. There exists
+        $f\left(k, d\right)$ such
+        that, if $\left|A\right| \geq f\left(k, d\right)$,
+        then $G$ contains an
         induced $k$-chord.
     \end{lemma}
 
@@ -302,7 +302,7 @@
 
     \begin{lemma} \label{lemma:outerplanar}
         An outerplanar $k'$-chord contains
-        an induced $k$-chord for any $k' \leq k$.
+        an induced $k$-chord for any $k \leq k'$.
     \end{lemma}
     \begin{proof}
         We first prove that an outerplanar
@@ -358,38 +358,50 @@
         holds if it holds for the case of $d = 1$.
     \end{lemma}
     \begin{proof}
-        We observe that the number
-        of neighbours of each $v \in A$ 
-        in $P_1$ is less than or equal
-        to $k+1$ and the number of
-        neighbours in $A$ of each vertex of
-        $P_1$ is bounded above by $d$.
-        So, let $N \geq 1$ be a constant only depending
-        on $k$ and $d$,
-        if $A$ has $N' = \left(N-1\right)
+        Suppose that Lemma \ref{lemma:paths}
+        holds for $d = 1$.
+        Let us fix some $k \geq 1$.
+        Let $G$ be a graph as
+        defined in the statement
+        of Lemma \ref{lemma:paths}.
+        Let $N' \geq 1$ be a constant
+        only depending on $k$
+        to be determined later on.
+        If $A$ has $N = \left(N'-1\right)
         \times \left(k+1\right) \times 
         d + 1$ vertices, then there
-        exist $N$ vertices in $A$ 
+        exist $N'$ vertices in $A$ 
         such that no two of these
         vertices share a neighbour
-        in $P_1$. Since we can ask
-        $N$ to be arbitrarily large and
-        $N'$ only depends on $k$ and $d$, we can assume
-        without loss of generality that
-        no two vertices of $A$ share a
-        neighbour in $P_1$.
-        We can then repeat the same argument
-        for $P_2$ and $P_3$. All in all,
-        we can assume without loss of
-        generality that no two vertices in $A$ share a
-        common neighbour in any of the $P_{j}$s.
-        
-        Therefore, we can restrict the proof
-        of Lemma \ref{lemma:paths} to the
-        case of $d = 1$. 
+        in $P_1$. 
+        Let $v_1, \ldots, v_{N'}$ 
+        be such vertices.
+        By a similar argument
+        applied on $P_2$, we get
+        the exitence of vertices
+        $v_1, \ldots, v_{N''}$ 
+        among $v_1, \ldots, v_{N'}$
+        such that no two of them
+        share a neighbour in $P_2$.
+        We then repeat the same reasoning
+        to get vertices
+        $v_1, \ldots, v_{N'''}$ 
+        among $v_1, \ldots, v_{N''}$
+        such that no two share a
+        neighbour in $P_3$.
+        We set $N''' \defeq f\left(k, 1\right)$.
+        Then, by assumption, $G$ has a
+        an induced $k$-chord.
+        Notice that the constants
+        $N''$ and $N'$ only depend
+        on $k$ and the constant
+        $N$ only depends on $k$ and $d$.
+        We set $f\left(k, d\right) \defeq N$.
+        Which proves Lemma \ref{lemma:paths}.
     \end{proof}
-    
-    We are now ready to prove Lemma \ref{lemma:paths}.
+
+    Thus, we can prove Lemma \ref{lemma:paths}
+    only focusing on the case $d = 1$.
 
     \begin{proof}[Proof of Lemma \ref{lemma:paths}]
         As noticed in Lemma \ref{lemma:done},
